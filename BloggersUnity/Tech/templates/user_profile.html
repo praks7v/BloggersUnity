@@ -1,0 +1,28 @@
+<!-- user_profile.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>User Profile </h2>
+    <a href="{% url 'user_blog_posts' %}">Your Blog Posts</a>
+    <a href="{% url 'password_change' %}">Change Password</a>
+    <a href="{% url 'password_reset' %}">Reset Password</a>
+    <div class="user-profile">
+        <h3>{{ user.username }}</h3>
+        <p>Email: {{ user.email }}</p>
+        <p>Date of Birth: {{ user.date_of_birth }}</p>
+        <p>Bio: {{ user.bio }}</p>
+        {% if user.profile_picture %}
+        <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
+        {% else %}
+        <p>No profile picture available.</p>
+        {% endif %}
+    </div>
+    <h3>Edit Profile</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update Profile</button>
+    </form>
+</div>
+{% endblock %}
