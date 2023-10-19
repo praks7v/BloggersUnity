@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 # Register your models here.
-from .models import CustomUser, BlogPost  # Import your model
+from .models import CustomUser, BlogPost
 
 
 class CustomUserAdmin(UserAdmin):
@@ -16,7 +16,6 @@ admin.site.register(CustomUser, CustomUserAdmin)
 
 class BlogPostAdmin(admin.ModelAdmin):
     list_filter = ('status', 'categories', 'tags')
-    # Other admin options and customizations, if needed
 
 
 admin.site.register(BlogPost, BlogPostAdmin)
