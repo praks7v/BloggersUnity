@@ -1,28 +1,157 @@
-<!-- user_profile.html -->
 {% extends 'base.html' %}
-
 {% block content %}
-<div class="container mt-5">
-    <h2>User Profile </h2>
-    <a href="{% url 'user_blog_posts' %}">Your Blog Posts</a>
-    <a href="{% url 'password_change' %}">Change Password</a>
-    <a href="{% url 'password_reset' %}">Reset Password</a>
-    <div class="user-profile">
-        <h3>{{ user.username }}</h3>
-        <p>Email: {{ user.email }}</p>
-        <p>Date of Birth: {{ user.date_of_birth }}</p>
-        <p>Bio: {{ user.bio }}</p>
-        {% if user.profile_picture %}
-        <img src="{{ user.profile_picture.url }}" alt="Profile Picture">
-        {% else %}
-        <p>No profile picture available.</p>
+<section class="py-4">
+    <div class="container">
+        {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
         {% endif %}
+
+        <div class="row g-4">
+            <!-- Profile and info START -->
+            <div class="col-12">
+                <div class="card mb-4 position-relative z-index-9">
+                    <div class="card-body pt-3 pb-0">
+                        <div class="row d-flex justify content-between">
+                            <!-- Avatar -->
+                            <div class="col-sm-12 col-md-auto text-center text-md-start">
+                                <div class="avatar avatar-xxl mt-n5">
+                                    {% if user.profile_picture %}
+                                    <img class="avatar-img rounded-circle border border-white border-3 shadow"
+                                         src="{{ user.profile_picture.url }}" alt="Profile Picture">
+                                    {% else %}
+                                    <img class="avatar-img rounded-circle border border-white border-3 shadow"
+                                         src="" style="width: 120px; height: 120px;" alt="Profile Picture">
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- Profile info -->
+                            <div class="col-sm-12 col-md text-center text-md-start d-md-flex justify-content-between align-items-center">
+                                <div>
+                                    <h4 class="my-1">{{ user.first_name }} {{ user.last_name }}<i
+                                            class="bi bi-patch-check-fill text-info small"></i></h4>
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item"><i class="bi bi-person-fill me-1"></i>User Name:
+                                            {{ user.username }}
+                                        </li>
+                                        <li class="list-inline-item"><i class="bi bi-person-fill me-1"></i>E-mail:
+                                            {{ user.email }}
+                                        </li>
+                                        <li class="list-inline-item"><i class="bi bi-calendar2-plus me-1"></i>Start
+                                            Date: {{ user.date_joined|date:"d F, Y" }}
+                                        </li>
+                                    </ul>
+                                    <p class="m-0"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Profile info END -->
+        </div>
+
+
+        <div class="row g-4">
+            <!-- Left sidebar START -->
+            <div class="col-lg-7 col-xxl-8">
+                <!-- Profile START -->
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="card border mb-4">
+                        <div class="card-header border-bottom p-3">
+                            <h5 class="card-header-title mb-0">Profile</h5>
+                        </div>
+                        <div class="card-body">
+                            <!-- Full name -->
+                            <div class="mb-3">
+                                <label class="form-label">Full name</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="first_name"
+                                           value="{{ user.first_name }}"
+                                           placeholder="First name">
+                                    <input type="text" class="form-control" name="last_name"
+                                           value="{{ user.last_name }}"
+                                           placeholder="Last name">
+                                </div>
+                            </div>
+                            <!-- Profile picture -->
+                            <div class="mb-3">
+                                <label class="form-label">Profile Picture</label>
+                                <!-- Profile Picture Upload -->
+                                <div>
+                                    <input type="file" name="profile_picture" accept="image/*" id="id_profile_picture">
+                                    <!-- Profile Picture Edit -->
+                                    {% if user.profile_picture %}
+                                    <label for="id_profile_picture">Clear Profile Picture: </label>
+                                    <input type="checkbox" name="profile_picture-clear" id="profile_picture-clear_id">
+                                    <label for="profile_picture-clear_id">Clear</label>
+                                    {% else %}
+                                    <label for="id_profile_picture">Upload Profile Picture</label>
+                                    {% endif %}
+                                </div>
+
+                                <!-- Profile upload END -->
+                            </div>
+                            <!-- Bio -->
+                            <div class="mb-3">
+                                <label class="form-label">Bio</label>
+                                <textarea class="form-control" rows="3" name="bio">{{ user.bio }}</textarea>
+                                <div class="form-text">Brief description for your profile.</div>
+                            </div>
+                            <!-- Birthday -->
+                            <div>
+                                <label class="form-label">Birthday</label>
+                                <input type="text" class="form-control flatpickr-input" placeholder="DD/MM/YYYY"
+                                       name="date_of_birth" value="{{ user.date_of_birth|date:'d/m/Y' }}">
+                            </div>
+                            <!-- Save button -->
+                            <div class="d-flex justify-content-end mt-4">
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- Profile END -->
+            </div>
+            <!-- Left sidebar END -->
+            <!-- Right sidebar START -->
+            <div class="col-lg-5 col-xxl-4">
+                <!-- Change or Reset START -->
+                <div class="card border mb-4">
+                    <div class="card-header border-bottom p-3">
+                        <h5 class="card-header-title mb-0">Forgot Password?</h5>
+                    </div>
+                    <a href="{% url 'password_change' %}" class="btn btn-success my-1">Change Password</a>
+                    <a href="{% url 'password_reset' %}" class="btn btn-danger my-1">Reset Password</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <h3>Edit Profile</h3>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Update Profile</button>
-    </form>
-</div>
+</section>
 {% endblock %}
+{% if messages %}
+<div class="toast-container position-absolute end-0 mt-5">
+    {% for message in messages %}
+    <div class="toast show mb-2 alert-{{ message.tags }}" role="alert" data-autohide="true" data-delay="5000">
+        <div class="toast-header">
+            <strong class="mr-auto">Notification</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            {{ message }}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}

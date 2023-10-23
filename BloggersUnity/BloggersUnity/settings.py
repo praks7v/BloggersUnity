@@ -106,12 +106,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 AUTH_USER_MODEL = 'Tech.CustomUser'
-# The URL prefix for media files served from your app's media directory.
-STATIC_URL = '/static/'
+# Media settings
 MEDIA_URL = '/media/'
-
-# The absolute filesystem path to the directory that will hold your media files.
 MEDIA_ROOT = os.path.join(BASE_DIR, 'Tech', 'media')
+
+# Static files settings
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

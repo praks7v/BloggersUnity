@@ -5,70 +5,98 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
 
-    <!-- Add the Bootstrap CSS link -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/images/favicon.ico">
 
-    <!-- Add the Bootstrap JavaScript and Popper.js (for some components) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
 
 </head>
+
+
 <body>
 <!-- Navbar (optional) -->
-<div class="container">
-    <header class="blog-header py-3">
-        <div class="row flex-nowrap justify-content-between align-items-center">
-            <div class="col-4 text-center">
-                <a class="blog-header-logo text-dark" href="#">BloggersUnity</a>
-            </div>
-            <div class="col-4 d-flex justify-content-end align-items-center">
-                {% if user.is_authenticated %}
-                <a class="nav-link" href="{% url 'user_profile' %}">
-                    {{ user.username }}
-                </a>
-                <a href="{% url 'logout' %}">Logout</a>
-                {% else %}
-                <a class="link-secondary" href="#" aria-label="Search">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor"
-                         stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img"
-                         viewBox="0 0 24 24"><title>Search</title>
-                        <circle cx="10.5" cy="10.5" r="7.5"></circle>
-                        <path d="M21 21l-5.2-5.2"></path>
-                    </svg>
-                </a>
-                <a class="btn btn-sm btn-outline-secondary" href="/login">Log in</a>
-                <a class="btn btn-sm btn-outline-secondary" href="/signup">Sign up</a>
-                {% endif %}
-            </div>
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'index' %}">BloggersUnity</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog/">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about/">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact/">Contact</a>
+                </li>
+            </ul>
         </div>
-    </header>
-
-    <div class="nav-scroller py-1 mb-2">
-        <nav class="nav d-flex justify-content-between">
-            <a class="p-2 link-secondary" href="/admin">Admin</a>
-            <a class="p-2 link-secondary" href="/blog/">Blog Post</a>
-            <a class="p-2 link-secondary" href="#">Design</a>
-            <a class="p-2 link-secondary" href="#">Culture</a>
-            <a class="p-2 link-secondary" href="#">Business</a>
-            <a class="p-2 link-secondary" href="#">Politics</a>
-            <a class="p-2 link-secondary" href="{% url 'index' %}">Home</a>
-            <a class="p-2 link-secondary" href="#">Health</a>
-            <a class="p-2 link-secondary" href="#">Style</a>
-        </nav>
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav justify-content-end">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    User Profile
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'user_profile' %}">Edit Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url 'user_blog_posts' %}">User Blog Posts</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
+                </ul>
+            </li>
+        </ul>
+        {% else %}
+        <div class="btn">
+            <a class="btn btn-sm btn-outline-secondary" href="/login">Log in</a>
+            <a class="btn btn-sm btn-outline-secondary" href="/signup">Sign up</a>
+        </div>
+        {% endif %}
     </div>
-</div>
+</nav>
+
+
 {% block content %}
 {% endblock %}
 <!-- Footer (optional) -->
-<footer class="footer mt-auto py-3 bg-light">
+<footer class="mb-3">
     <div class="container">
-        &copy; 2023 BloggerUnity
+        <div class="card card-body bg-light">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-6">
+                    <!-- Copyright -->
+                    <div class="text-center text-lg-start">©2023 BloggersUnity. All rights reserved
+                    </div>
+                </div>
+                <div class="col-lg-6 d-sm-flex align-items-center justify-content-center justify-content-lg-end">
+                    <!-- Links -->
+                    <ul class="nav text-center text-sm-end justify-content-center justify-content-center mt-3 mt-md-0">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'privacy_policy' %}">Privacy Policy</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'faqs' %}">FAQs</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </footer>
 
 <!-- Include Bootstrap JavaScript -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </body>
 </html>
+
+
 

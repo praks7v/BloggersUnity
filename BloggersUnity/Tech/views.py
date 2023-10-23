@@ -19,14 +19,32 @@ def index(request):
     return render(request, 'base.html')
 
 
+def about(request):
+    return render(request, 'about.html')
+
+
+def contact(request):
+    return render(request, 'contact.html')
+
+
+def faqs(request):
+    return render(request, 'faqs.html')
+
+
+def privacy_policy(request):
+    return render(request, 'privacy_policy.html')
+
+
 def signup(request):
     if request.method == 'POST':
         signup_form = CustomSignUpForm(request.POST)
         if signup_form.is_valid():
             signup_form.save()
+            messages.success(request, 'Your account has been created. You can now log in.')
             return redirect('login')
         else:
-            pass
+            # Form is not valid, show the form with errors
+            messages.error(request, 'Please correct the errors below.')
     else:
         signup_form = CustomSignUpForm()
 
@@ -191,14 +209,21 @@ class CustomPasswordChangeView(LoginRequiredMixin, View):
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
-        form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)
-            messages.success(request, 'Password changed successfully.')
-            return redirect('password_change')  # Redirect to a success page or another URL
+        if request.method == 'POST':
+            form = PasswordChangeForm(request.user, request.POST)
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)
+                messages.success(request, 'Password changed successfully.')
+                return redirect('password_change')
+            else:
+                if 'old_password' in form.errors:
+                    messages.error(request, 'Old password is incorrect.')
+                if 'new_password2' in form.errors:
+                    messages.error(request, 'Passwords do not match. Enter correct password.')
         else:
-            return render(request, self.template_name, {'form': form})
+            form = PasswordChangeForm(request.user)
+        return render(request, self.template_name, {'form': form})
 
 
 class CustomPasswordResetView(View):
@@ -215,5 +240,12 @@ class CustomPasswordResetView(View):
         form = PasswordResetForm(request.POST)
         if form.is_valid():
             # Process the password reset logic here
-            messages.error(request, "Password reset isn't working. Please contact at example@gmail.com.")
+            messages.error(request, "Password reset isn't working. Please contact at help@bloggersunity.com.")
             return redirect('password_reset')  # Redirect to a success page or another URL
+        else:
+            messages.error(request, "Password reset isn't working. Please contact at help@bloggersunity.com.")  # Set an error message
+            form = PasswordResetForm()  # Reset the form
+            context = {
+                'form': form,
+            }
+            return render(request, self.template_name, context)  # You can customize this response
