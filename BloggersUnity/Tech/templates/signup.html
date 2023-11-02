@@ -2,57 +2,60 @@
 {% block title %}Sign Up{% endblock %}
 
 {% block content %}
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-lg-8 col-xl-6 mx-auto">
-                <div class="bg-primary bg-opacity-10 rounded p-4 p-sm-5">
-                    <h2>Create your free account </h2>
-                    <!-- Form START -->
-                    <form class="mt-4" method="post">
-                        {% csrf_token %}
-                        <!-- User Name -->
-                        <div class="mb-3">
-                            <label class="form-label" for="id_username">User Name</label>
-                            <input class="form-control" id="id_username" name="username" placeholder="User Name"
-                                   type="text">
-                            {{ signup_form.username.errors }}
+
+<!-- Section Content -->
+<section class="container">
+    <div class="row">
+        <div class="col-md-10 col-lg-8 col-xl-6 mx-auto mt-3">
+            <div class="bg-primary bg-opacity-10 rounded p-4 p-sm-5">
+                <h2>Create your free account </h2>
+                <!-- Form START -->
+                <form class="mt-4" method="post">
+                    {% csrf_token %}
+                    <!-- User Name -->
+                    <div class="mb-3">
+                        <label class="form-label" for="id_username">User Name</label>
+                        <input class="form-control" id="id_username" name="username" placeholder="User Name"
+                               type="text">
+                        {{ signup_form.username.errors }}
+                    </div>
+                    <!-- Email -->
+                    <div class="mb-3">
+                        <label class="form-label" for="id_email">Email address</label>
+                        <input aria-describedby="emailHelp" class="form-control" id="id_email" name="email"
+                               placeholder="E-mail" type="email">
+                        {{ signup_form.email.errors }}
+                        <small class="form-text" id="emailHelp">We'll never share your email with anyone
+                            else.</small>
+                    </div>
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <label class="form-label" for="id_password1">Password</label>
+                        <input class="form-control" id="id_password1" name="password1" placeholder="*********"
+                               type="password">
+                        <!-- Error message -->
+                        {{ signup_form.password1.errors }}
+                    </div>
+                    <!-- Confirm Password -->
+                    <div class="mb-3">
+                        <label class="form-label" for="id_password2">Confirm Password</label>
+                        <input class="form-control" id="id_password2" name="password2" placeholder="*********"
+                               type="password">
+                        <!-- Error message -->
+                        {{ signup_form.password2.errors }}
+                    </div>
+                    <!-- Button -->
+                    <div class="row align-items-center">
+                        <div class="col-sm-4">
+                            <button class="btn btn-success" type="submit">Sign up</button>
                         </div>
-                        <!-- Email -->
-                        <div class="mb-3">
-                            <label class="form-label" for="id_email">Email address</label>
-                            <input aria-describedby="emailHelp" class="form-control" id="id_email" name="email"
-                                   placeholder="E-mail" type="email">
-                            {{ signup_form.email.errors }}
-                            <small class="form-text" id="emailHelp">We'll never share your email with anyone
-                                else.</small>
+                        <!-- Login link -->
+                        <div class="col-sm-8 text-sm-end">
+                            <span>Have an account? <a href="{% url 'login' %}"><u>Log in</u></a></span>
                         </div>
-                        <!-- Password -->
-                        <div class="mb-3">
-                            <label class="form-label" for="id_password1">Password</label>
-                            <input class="form-control" id="id_password1" name="password1" placeholder="*********"
-                                   type="password">
-                            {{ signup_form.password1.errors }}
-                        </div>
-                        <!-- Confirm Password -->
-                        <div class="mb-3">
-                            <label class="form-label" for="id_password2">Confirm Password</label>
-                            <input class="form-control" id="id_password2" name="password2" placeholder="*********"
-                                   type="password">
-                            {{ signup_form.password2.errors }}
-                        </div>
-                        <!-- Button -->
-                        <div class="row align-items-center">
-                            <div class="col-sm-4">
-                                <button class="btn btn-success" type="submit">Sign up</button>
-                            </div>
-                            <div class="col-sm-8 text-sm-end">
-                                <span>Have an account? <a href="{% url 'login' %}"><u>Log in</u></a></span>
-                            </div>
-                        </div>
-                    </form>
-                    <!-- Form END -->
-                </div>
+                    </div>
+                </form>
+                <!-- Form END -->
             </div>
         </div>
     </div>

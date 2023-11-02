@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<!-- Section Content -->
+<section class="py-4">
+    <div class="container">
+        <div class="col-12">
+            <!-- Blog list table START -->
+            <div class="card border bg-transparent rounded-3">
+                <!-- Card header START -->
+                <div class="card-header bg-transparent border-bottom p-3">
+                    <div class="d-sm-flex justify-content-between align-items-center">
+                        <h5 class="mb-2 mb-sm-0">Blog Post <span
+                                class="badge bg-primary bg-opacity-10 text-primary">{{ user_post_count }}</span>
+                        </h5>
+                        <a href="{% url 'create_blog_post' %}" class="btn btn-sm btn-primary mb-0">Add New</a>
+                    </div>
+                </div>
+                <!-- Card header END -->
+
+                <!-- Card body START -->
+                <div class="card-body">
+                    <!-- Blog list table START -->
+                    <div class="table-responsive">
+                        <table class="table align-middle p-4 mb-0 table-hover table-shrink">
+                            <!-- Table head -->
+                            <thead class="table-dark">
+                            <tr>
+                                <th scope="col" class="border-0 rounded-start">Blog Name</th>
+                                <th scope="col" class="border-0">
+                                    <div class="dropdown">
+                                        <!-- Filter by Newest & Oldest -->
+                                        <a class="dropdown-toggle" href="?sort=newest" role="button"
+                                           data-bs-toggle="dropdown"
+                                           aria-expanded="false" style="text-decoration: none;">
+                                            Published Date
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="?sort=newest">Newest</a></li>
+                                            <li><a class="dropdown-item" href="?sort=oldest">Oldest</a></li>
+                                        </ul>
+                                    </div>
+                                </th>
+                                <th scope="col" class="border-0">
+                                    <div class="dropdown">
+                                        <!-- Filter by Categories -->
+                                        <a class="dropdown-toggle" href="?category=all" role="button"
+                                           data-bs-toggle="dropdown"
+                                           aria-expanded="false" style="text-decoration: none;">
+                                            Categories
+                                        </a>
+
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="?category=all">All Categories</a></li>
+                                            <li><a class="dropdown-item" href="?category=Aerospace">Aerospace</a></li>
+                                            <li>
+                                                <a class="dropdown-item" href="?category=Artificial_Intelligence">Artificial
+                                                    Intelligence</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="?category=Automotive">Automotive</a></li>
+                                            <li><a class="dropdown-item"
+                                                   href="?category=Biotechnology">Biotechnology</a></li>
+                                            <li><a class="dropdown-item"
+                                                   href="?category=Cybersecurity">Cybersecurity</a></li>
+                                            <li><a class="dropdown-item" href="?category=Fintech">Fintech</a></li>
+                                            <li><a class="dropdown-item" href="?category=Gaming">Gaming</a></li>
+                                            <li><a class="dropdown-item" href="?category=IoT">Internet of Things</a>
+                                            </li>
+                                            <li><a class="dropdown-item" href="?category=Robotics">Robotics</a></li>
+                                        </ul>
+                                    </div>
+                                </th>
+                                <th scope="col" class="border-0">
+                                    <div class="dropdown">
+                                        <!-- Filter by Satus -->
+                                        <a class="dropdown-toggle" href="?status=all" role="button"
+                                           data-bs-toggle="dropdown"
+                                           aria-expanded="false" style="text-decoration: none;">
+                                            Status
+                                        </a>
+
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="?status=all">All Post</a></li>
+                                            <li><a class="dropdown-item" href="?status=published">Published</a></li>
+                                            <li><a class="dropdown-item" href="?status=draft">Draft</a></li>
+                                            <li><a class="dropdown-item" href="?status=archived">Archived</a></li>
+                                        </ul>
+                                    </div>
+                                </th>
+                                <!-- Action for Edit or Delete -->
+                                <th scope="col" class="border-0 rounded-end">Action</th>
+                            </tr>
+                            </thead>
+
+                            <!-- Table body START -->
+                            <tbody class="border-top-0">
+                            {% for post in user_posts %}
+                            <!-- Table item -->
+                            <tr>
+                                <!-- Title -->
+                                <td>
+                                    <h6 class="course-title mt-2 mt-md-0 mb-0">
+                                        <a href="{% url 'blog_post_detail' post.slug %}" style="text-decoration: none;">
+                                            {{ post.title }}</a>
+                                    </h6>
+                                </td>
+                                <!-- Published Date -->
+                                <td>{{ post.pub_date | date:"M d, Y" }}</td>
+                                <!-- Category -->
+                                <td>
+                                    <span class="badge mb-2"><i
+                                            class="fas fa-circle me-2 small fw-bold"></i>{{ post.categories }}</span>
+                                </td>
+                                <!-- Status -->
+                                <td>
+                                    <span class="badge bg-success bg-opacity-10 text-success mb-2">{{ post.status }}</span>
+                                </td>
+                                <!-- Action Delete or Edit -->
+                                <td>
+                                    <div class="d-flex gap-2">
+                                        <a href="{% url 'delete_blog_post' post.id %}"
+                                           class="btn btn-light btn-round mb-0" data-bs-toggle="tooltip"
+                                           data-bs-placement="top" aria-label="Delete"
+                                           data-bs-original-title="Delete"><i
+                                                class="bi bi-trash"></i></a>
+                                        <a href="{% url 'edit_blog_post' post.id %}"
+                                           class="btn btn-light btn-round mb-0"
+                                           data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Edit"
+                                           data-bs-original-title="Edit"><i class="bi bi-pencil-square"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="3">No blog posts found.</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                            <!-- Table body END -->
+                        </table>
+                    </div>
+                    <!-- Blog list table END -->
+
+                    <!-- Pagination START -->
+                    {% if user_posts.paginator.num_pages > 1 %}
+                    <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
+                        <!-- Content -->
+                        <p class="mb-sm-0 text-center text-sm-start">Showing {{ user_posts.start_index }} to
+                            {{ user_posts.end_index }} of {{ user_post_count }} entries</p>
+                        <!-- Pagination -->
+                        <nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
+                            <ul class="pagination pagination-sm pagination-bordered mb-0">
+                                {% if user_posts.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ user_posts.previous_page_number }}">Prev</a>
+                                </li>
+                                {% endif %}
+
+                                {% for page in user_posts.paginator.page_range %}
+                                {% if page == user_posts.number %}
+                                <li class="page-item active">
+                                    <span class="page-link">{{ page }}</span>
+                                </li>
+                                {% else %}
+                                {% if page >= user_posts.number|add:"-4" and page <= user_posts.number|add:"4" %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                                </li>
+                                {% elif page == user_posts.number|add:"5" or page == user_posts.number|add:"-5" %}
+                                <li class="page-item">
+                                    <span class="page-link" tabindex="-1" aria-disabled="true">...</span>
+                                </li>
+                                {% endif %}
+                                {% endif %}
+                                {% endfor %}
+
+                                {% if user_posts.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ user_posts.next_page_number }}">Next</a>
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                    {% endif %}
+                    <!-- Pagination END -->
+                </div>
+            </div>
+            <!-- Blog list table END -->
+        </div>
+    </div>
+</section>
+{% endblock %}

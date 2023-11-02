@@ -1,12 +1,73 @@
 {% extends 'base.html' %}
+{% block title %}Edit Blog Post{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-  <h2>Edit Blog Post</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Update</button>
-  </form>
-</div>
+
+<!-- Main Content -->
+<main class="container mt-5">
+    <h2>Edit Blog Post</h2>
+    <!-- Edit form START -->
+    <form enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <!-- Title -->
+        <div class="mb-3">
+            <label class="form-label" for="id_title">Title</label>
+            <div class="input-group">
+                <input class="form-control" id="id_title" name="title" type="text" value="{{ form.title.value }}">
+            </div>
+        </div>
+        <!-- Content -->
+        <div class="mb-3">
+            <label class="form-label" for="id_content">Content</label>
+            <div class="input-group">
+                <textarea class="form-control" id="id_content" name="content"
+                          rows="10">{{ form.content.value }}</textarea>
+            </div>
+        </div>
+        <!-- Category -->
+        <div class="mb-3">
+            <label class="form-label" for="id_categories">Category</label>
+            <select id="id_categories" name="categories">
+                <option value="Aerospace">Aerospace</option>
+                <option value="Artificial_Intelligence">Artificial Intelligence</option>
+                <option value="Automotive">Automotive</option>
+                <option value="Biotechnology">Biotechnology</option>
+                <option value="Cybersecurity">Cybersecurity</option>
+                <option value="Fintech">Fintech</option>
+                <option value="Gaming">Gaming</option>
+                <option value="IoT">IoT</option>
+                <option value="Robotics">Robotics</option>
+                <option value="Other">Other</option>
+                <option value="{{ form.categories.value }}" selected="">{{ form.categories.value }}</option>
+            </select>
+        </div>
+        <!-- Status -->
+        <div class="mb-3">
+            <label class="form-label" for="id_status">Status</label>
+            <select id="id_status" name="status">
+                <option value="draft">Draft</option>
+                <option selected="" value="published">Published</option>
+                <option value="archived">Archived</option>
+            </select>
+        </div>
+        <!-- Thumbnail -->
+        <div class="mb-3">
+            <label for="id_image">Thumbnail</label>
+            <input accept="image/*" id="id_image" name="image" type="file">
+
+            {% if form.instance.image %}
+            <p>Current Image: {{ form.instance.image.url }}</p>
+            {% endif %}
+
+            <input id="image-clear_id" name="image-clear" type="checkbox">
+            <label for="image-clear_id">Clear</label>
+        </div>
+        <!-- Update Button & Cancel -->
+        <div class="mb-3">
+            <button class="btn btn-primary" type="submit">Update</button>
+            <a class="btn btn-primary" href="{% url 'dashboard' %}">Cancel</a>
+        </div>
+    </form>
+    <!-- Edit form END -->
+</main>
 {% endblock %}

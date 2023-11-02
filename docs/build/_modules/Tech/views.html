@@ -1,0 +1,732 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tech.views &#8212; BloggersUnity 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bizstyle.css?v=532c1bf3" />
+    
+    <script src="../../_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">BloggersUnity 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tech.views</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for Tech.views</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Import necessary modules and classes from Django and your project</span>
+<span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">messages</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">login</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">update_session_auth_hash</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.forms</span> <span class="kn">import</span> <span class="n">AuthenticationForm</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.forms</span> <span class="kn">import</span> <span class="n">PasswordChangeForm</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.mixins</span> <span class="kn">import</span> <span class="n">LoginRequiredMixin</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.views</span> <span class="kn">import</span> <span class="n">LoginView</span><span class="p">,</span> <span class="n">LogoutView</span><span class="p">,</span> <span class="n">PasswordResetForm</span>
+<span class="kn">from</span> <span class="nn">django.core.paginator</span> <span class="kn">import</span> <span class="n">Paginator</span><span class="p">,</span> <span class="n">EmptyPage</span><span class="p">,</span> <span class="n">PageNotAnInteger</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Q</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">get_object_or_404</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">django.views</span> <span class="kn">import</span> <span class="n">View</span>
+
+<span class="c1"># Import your custom forms and models</span>
+<span class="kn">from</span> <span class="nn">.forms</span> <span class="kn">import</span> <span class="n">CustomSignUpForm</span><span class="p">,</span> <span class="n">UserProfileForm</span><span class="p">,</span> <span class="n">BlogPostForm</span><span class="p">,</span> <span class="n">BlogPostEditForm</span><span class="p">,</span> <span class="n">ContactForm</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">CustomUser</span><span class="p">,</span> <span class="n">BlogPost</span>
+
+
+<div class="viewcode-block" id="HomeView">
+<a class="viewcode-back" href="../../views.html#Tech.views.HomeView">[docs]</a>
+<span class="k">class</span> <span class="nc">HomeView</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Displays the home page with a list of blog posts.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        template_name (str): The HTML template used for rendering the home page.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        get(request): Handles GET requests for displaying the home page.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;home.html&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">BlogPost</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-pub_date&#39;</span><span class="p">)</span>
+
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;blog_posts&#39;</span><span class="p">:</span> <span class="n">blog_posts</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="AboutView">
+<a class="viewcode-back" href="../../views.html#Tech.views.AboutView">[docs]</a>
+<span class="k">class</span> <span class="nc">AboutView</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Displays the &#39;About&#39; page.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        get(request): Handles GET requests for displaying the &#39;About&#39; page.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;about.html&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="ContactView">
+<a class="viewcode-back" href="../../views.html#Tech.views.ContactView">[docs]</a>
+<span class="k">class</span> <span class="nc">ContactView</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Displays the contact page and handles contact form submissions.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        template_name (str): The HTML template used for rendering the contact page.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        get(request): Handles GET requests for displaying the contact page.</span>
+<span class="sd">        post(request): Handles POST requests for processing contact form submissions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;contact.html&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">ContactForm</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span> <span class="s1">&#39;success_message&#39;</span><span class="p">:</span> <span class="s1">&#39;&#39;</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">ContactForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+
+        <span class="n">success_message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">success_message</span> <span class="o">=</span> <span class="s2">&quot;Thank you for your message! We&#39;ll get in touch with you shortly.&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">form</span> <span class="o">=</span> <span class="n">ContactForm</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span> <span class="s1">&#39;success_message&#39;</span><span class="p">:</span> <span class="n">success_message</span><span class="p">})</span></div>
+
+
+
+<div class="viewcode-block" id="FaqsView">
+<a class="viewcode-back" href="../../views.html#Tech.views.FaqsView">[docs]</a>
+<span class="k">class</span> <span class="nc">FaqsView</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Displays the frequently asked questions (FAQs) page.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        get(request): Handles GET requests for displaying the FAQs page.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;faqs.html&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="PrivacyPolicyView">
+<a class="viewcode-back" href="../../views.html#Tech.views.PrivacyPolicyView">[docs]</a>
+<span class="k">class</span> <span class="nc">PrivacyPolicyView</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Displays the privacy policy page.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        get(request): Handles GET requests for displaying the privacy policy page.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;privacy_policy.html&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="SignupView">
+<a class="viewcode-back" href="../../views.html#Tech.views.SignupView">[docs]</a>
+<span class="k">class</span> <span class="nc">SignupView</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Displays the signup page and handles user registration.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        template_name (str): The HTML template used for rendering the signup page.</span>
+<span class="sd">        form_class (class): The form class for user registration.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        get(request): Handles GET requests for displaying the signup page.</span>
+<span class="sd">        post(request): Handles POST requests for user registration and form submissions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;signup.html&#39;</span>
+
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">CustomSignUpForm</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_class</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;signup_form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_class</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">login</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;login&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Handle the case where the form is not valid</span>
+            <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;signup_form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">})</span></div>
+
+
+
+<div class="viewcode-block" id="CustomLoginView">
+<a class="viewcode-back" href="../../views.html#Tech.views.CustomLoginView">[docs]</a>
+<span class="k">class</span> <span class="nc">CustomLoginView</span><span class="p">(</span><span class="n">LoginView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles user login and displays the login page.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        template_name (str): The HTML template used for rendering the login page.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        get(request, *args, **kwargs): Handles GET requests for displaying the login page.</span>
+<span class="sd">        post(request, *args, **kwargs): Handles POST requests for user login and form submissions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;login.html&#39;</span>
+
+<div class="viewcode-block" id="CustomLoginView.get">
+<a class="viewcode-back" href="../../views.html#Tech.views.CustomLoginView.get">[docs]</a>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">AuthenticationForm</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="CustomLoginView.post">
+<a class="viewcode-back" href="../../views.html#Tech.views.CustomLoginView.post">[docs]</a>
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">AuthenticationForm</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">get_user</span><span class="p">()</span>
+            <span class="n">login</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">})</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="CustomLogoutView">
+<a class="viewcode-back" href="../../views.html#Tech.views.CustomLogoutView">[docs]</a>
+<span class="k">class</span> <span class="nc">CustomLogoutView</span><span class="p">(</span><span class="n">LogoutView</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles user logout.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        next_page (str): The URL to redirect to after successful logout.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        (Inherits LogoutView&#39;s methods)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">next_page</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span></div>
+
+
+
+<div class="viewcode-block" id="UserProfileView">
+<a class="viewcode-back" href="../../views.html#Tech.views.UserProfileView">[docs]</a>
+<span class="k">class</span> <span class="nc">UserProfileView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Displays the user profile page and handles user profile updates.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        template_name (str): The HTML template used for rendering the user profile page.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        get(request): Handles GET requests for displaying the user profile page.</span>
+<span class="sd">        post(request): Handles POST requests for user profile updates and form submissions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;user_profile.html&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">UserProfileForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;user&#39;</span><span class="p">:</span> <span class="n">user</span><span class="p">,</span> <span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">UserProfileForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;Profile updated successfully.&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;user_profile&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;Profile update failed. Please check the form.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;user&#39;</span><span class="p">:</span> <span class="n">user</span><span class="p">,</span> <span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">})</span></div>
+
+
+
+<div class="viewcode-block" id="DashboardView">
+<a class="viewcode-back" href="../../views.html#Tech.views.DashboardView">[docs]</a>
+<span class="k">class</span> <span class="nc">DashboardView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Displays the user dashboard and handles sorting and filtering of user&#39;s blog posts.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        template_name (str): The HTML template used for rendering the user dashboard.</span>
+<span class="sd">        per_page (int): Number of blog posts to display per page.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        get(request): Handles GET requests for displaying the user dashboard.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;dashboard.html&#39;</span>
+    <span class="n">per_page</span> <span class="o">=</span> <span class="mi">10</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">sort</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;sort&#39;</span><span class="p">,</span> <span class="s1">&#39;newest&#39;</span><span class="p">)</span>  <span class="c1"># Default to &#39;newest&#39;</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="n">user_posts</span> <span class="o">=</span> <span class="n">BlogPost</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">author</span><span class="o">=</span><span class="n">user</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">sort</span> <span class="o">==</span> <span class="s1">&#39;oldest&#39;</span><span class="p">:</span>
+            <span class="n">user_posts</span> <span class="o">=</span> <span class="n">user_posts</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;pub_date&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">user_posts</span> <span class="o">=</span> <span class="n">user_posts</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-pub_date&#39;</span><span class="p">)</span>
+
+        <span class="n">status</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">,</span> <span class="s1">&#39;all&#39;</span><span class="p">)</span>  <span class="c1"># Default to &#39;all&#39;</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="o">!=</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+            <span class="n">user_posts</span> <span class="o">=</span> <span class="n">user_posts</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="p">)</span>
+
+        <span class="n">category</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">,</span> <span class="s1">&#39;all&#39;</span><span class="p">)</span>  <span class="c1"># Default to &#39;all&#39;</span>
+        <span class="k">if</span> <span class="n">category</span> <span class="o">!=</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+            <span class="n">user_posts</span> <span class="o">=</span> <span class="n">user_posts</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">categories</span><span class="o">=</span><span class="n">category</span><span class="p">)</span>
+
+        <span class="n">user_post_count</span> <span class="o">=</span> <span class="n">user_posts</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>  <span class="c1"># For count User post</span>
+
+        <span class="n">paginator</span> <span class="o">=</span> <span class="n">Paginator</span><span class="p">(</span><span class="n">user_posts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">per_page</span><span class="p">)</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">user_posts</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">PageNotAnInteger</span><span class="p">:</span>
+            <span class="n">user_posts</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">EmptyPage</span><span class="p">:</span>
+            <span class="n">user_posts</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">paginator</span><span class="o">.</span><span class="n">num_pages</span><span class="p">)</span>
+
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;user_posts&#39;</span><span class="p">:</span> <span class="n">user_posts</span><span class="p">,</span>
+            <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="n">status</span><span class="p">,</span>
+            <span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="n">category</span><span class="p">,</span>
+            <span class="s1">&#39;user_post_count&#39;</span><span class="p">:</span> <span class="n">user_post_count</span><span class="p">,</span>
+            <span class="s1">&#39;sort&#39;</span><span class="p">:</span> <span class="n">sort</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="CreateBlogPostView">
+<a class="viewcode-back" href="../../views.html#Tech.views.CreateBlogPostView">[docs]</a>
+<span class="k">class</span> <span class="nc">CreateBlogPostView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles the creation of new blog posts.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        template_name (str): The HTML template used for rendering the create blog post page.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        get(request): Handles GET requests for displaying the create blog post page.</span>
+<span class="sd">        post(request): Handles POST requests for creating new blog posts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;create_blog_post.html&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">BlogPostForm</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">BlogPostForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">blog_post</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">blog_post</span><span class="o">.</span><span class="n">author</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+            <span class="n">blog_post</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;dashboard&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="EditBlogPostView">
+<a class="viewcode-back" href="../../views.html#Tech.views.EditBlogPostView">[docs]</a>
+<span class="k">class</span> <span class="nc">EditBlogPostView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles the editing of existing blog posts.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        template_name (str): The HTML template used for rendering the edit blog post page.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        get(request, blog_post_id): Handles GET requests for displaying the edit blog post page.</span>
+<span class="sd">        post(request, blog_post_id): Handles POST requests for editing existing blog posts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;edit_blog_post.html&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">blog_post_id</span><span class="p">):</span>
+        <span class="n">blog_post</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">BlogPost</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">blog_post_id</span><span class="p">,</span> <span class="n">author</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">BlogPostEditForm</span><span class="p">(</span><span class="n">instance</span><span class="o">=</span><span class="n">blog_post</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span> <span class="s1">&#39;blog_post&#39;</span><span class="p">:</span> <span class="n">blog_post</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">blog_post_id</span><span class="p">):</span>
+        <span class="n">blog_post</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">BlogPost</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">blog_post_id</span><span class="p">,</span> <span class="n">author</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">BlogPostEditForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">,</span> <span class="n">instance</span><span class="o">=</span><span class="n">blog_post</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;dashboard&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="DeleteBlogPostView">
+<a class="viewcode-back" href="../../views.html#Tech.views.DeleteBlogPostView">[docs]</a>
+<span class="k">class</span> <span class="nc">DeleteBlogPostView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles the deletion of existing blog posts.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        template_name (str): The HTML template used for rendering the delete blog post page.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        get(request, blog_post_id): Handles GET requests for displaying the delete blog post page.</span>
+<span class="sd">        post(request, blog_post_id): Handles POST requests for deleting existing blog posts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;delete_blog_post.html&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">blog_post_id</span><span class="p">):</span>
+        <span class="n">blog_post</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">BlogPost</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">blog_post_id</span><span class="p">,</span> <span class="n">author</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;blog_post&#39;</span><span class="p">:</span> <span class="n">blog_post</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">blog_post_id</span><span class="p">):</span>
+        <span class="n">blog_post</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">BlogPost</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="n">blog_post_id</span><span class="p">,</span> <span class="n">author</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">blog_post</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;dashboard&#39;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="BlogPostsView">
+<a class="viewcode-back" href="../../views.html#Tech.views.BlogPostsView">[docs]</a>
+<span class="k">class</span> <span class="nc">BlogPostsView</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Displays a list of all blog posts.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        template_name (str): The HTML template used for rendering the blog post list.</span>
+<span class="sd">        per_page (int): Number of blog posts to display per page.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        get(request): Handles GET requests for displaying the list of all blog posts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;blog_post_list.html&#39;</span>
+    <span class="n">per_page</span> <span class="o">=</span> <span class="mi">10</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+
+        <span class="n">all_blog_posts</span> <span class="o">=</span> <span class="n">BlogPost</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-pub_date&#39;</span><span class="p">)</span>
+        <span class="n">blog_post_count</span> <span class="o">=</span> <span class="n">all_blog_posts</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+        <span class="n">paginator</span> <span class="o">=</span> <span class="n">Paginator</span><span class="p">(</span><span class="n">all_blog_posts</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">per_page</span><span class="p">)</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">PageNotAnInteger</span><span class="p">:</span>
+            <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">EmptyPage</span><span class="p">:</span>
+            <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">paginator</span><span class="o">.</span><span class="n">num_pages</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;blog_posts&#39;</span><span class="p">:</span> <span class="n">blog_posts</span><span class="p">,</span> <span class="s1">&#39;blog_post_count&#39;</span><span class="p">:</span> <span class="n">blog_post_count</span><span class="p">})</span></div>
+
+
+
+<div class="viewcode-block" id="BlogPostDetailView">
+<a class="viewcode-back" href="../../views.html#Tech.views.BlogPostDetailView">[docs]</a>
+<span class="k">class</span> <span class="nc">BlogPostDetailView</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Displays a detailed view of a single blog post.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        template_name (str): The HTML template used for rendering the blog post detail.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        get(request, post_slug): Handles GET requests for displaying a detailed view of a single blog post.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;blog_post_detail.html&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">post_slug</span><span class="p">):</span>
+        <span class="n">current_post</span> <span class="o">=</span> <span class="n">get_object_or_404</span><span class="p">(</span><span class="n">BlogPost</span><span class="p">,</span> <span class="n">slug</span><span class="o">=</span><span class="n">post_slug</span><span class="p">)</span>
+        <span class="n">previous_post</span> <span class="o">=</span> <span class="n">BlogPost</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pub_date__lt</span><span class="o">=</span><span class="n">current_post</span><span class="o">.</span><span class="n">pub_date</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-pub_date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+        <span class="n">next_post</span> <span class="o">=</span> <span class="n">BlogPost</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pub_date__gt</span><span class="o">=</span><span class="n">current_post</span><span class="o">.</span><span class="n">pub_date</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;pub_date&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;current_post&#39;</span><span class="p">:</span> <span class="n">current_post</span><span class="p">,</span>
+            <span class="s1">&#39;previous_post&#39;</span><span class="p">:</span> <span class="n">previous_post</span><span class="p">,</span>
+            <span class="s1">&#39;next_post&#39;</span><span class="p">:</span> <span class="n">next_post</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="AuthorPostView">
+<a class="viewcode-back" href="../../views.html#Tech.views.AuthorPostView">[docs]</a>
+<span class="k">class</span> <span class="nc">AuthorPostView</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Displays a list of blog posts authored by a specific author.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        template_name (str): The HTML template used for rendering the author&#39;s posts.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        get(request, author_name): Handles GET requests for displaying the author&#39;s posts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;author_posts.html&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">author_name</span><span class="p">):</span>
+        <span class="c1"># Split the author_name into first name and last name</span>
+        <span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span> <span class="o">=</span> <span class="n">author_name</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+        <span class="c1"># Query the CustomUser model to get the author&#39;s profile</span>
+        <span class="n">author</span> <span class="o">=</span> <span class="n">CustomUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">first_name</span><span class="o">=</span><span class="n">first_name</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">Q</span><span class="p">(</span><span class="n">last_name</span><span class="o">=</span><span class="n">last_name</span><span class="p">))</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+
+        <span class="c1"># Filter blog posts by author&#39;s first name or last name</span>
+        <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">BlogPost</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">author__first_name</span><span class="o">=</span><span class="n">first_name</span><span class="p">)</span> <span class="o">|</span> <span class="n">Q</span><span class="p">(</span><span class="n">author__last_name</span><span class="o">=</span><span class="n">last_name</span><span class="p">))</span>
+
+        <span class="c1"># Count the Author Blog Post</span>
+        <span class="n">blog_post_count</span> <span class="o">=</span> <span class="n">blog_posts</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+
+        <span class="c1"># Number of posts to display per page</span>
+        <span class="n">posts_per_page</span> <span class="o">=</span> <span class="mi">10</span>
+
+        <span class="c1"># Create a Paginator object</span>
+        <span class="n">paginator</span> <span class="o">=</span> <span class="n">Paginator</span><span class="p">(</span><span class="n">blog_posts</span><span class="p">,</span> <span class="n">posts_per_page</span><span class="p">)</span>
+
+        <span class="c1"># Get the current page number from the request&#39;s GET parameters</span>
+        <span class="n">page</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Get the Page object for the requested page</span>
+            <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">PageNotAnInteger</span><span class="p">:</span>
+            <span class="c1"># If the page is not an integer, display the first page</span>
+            <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">EmptyPage</span><span class="p">:</span>
+            <span class="c1"># If the page is out of range, display the last page</span>
+            <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">paginator</span><span class="o">.</span><span class="n">num_pages</span><span class="p">)</span>
+
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="n">author</span><span class="p">,</span>
+            <span class="s1">&#39;blog_posts&#39;</span><span class="p">:</span> <span class="n">blog_posts</span><span class="p">,</span>
+            <span class="s1">&#39;blog_post_count&#39;</span><span class="p">:</span> <span class="n">blog_post_count</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="CategoryView">
+<a class="viewcode-back" href="../../views.html#Tech.views.CategoryView">[docs]</a>
+<span class="k">class</span> <span class="nc">CategoryView</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Displays a list of blog posts for a specific category.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        template_name (str): The HTML template used for rendering the author&#39;s posts.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        get(request, category): Handles GET requests for displaying category-specific blog posts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;category_posts.html&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">category</span><span class="p">):</span>
+
+        <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">BlogPost</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">categories__iexact</span><span class="o">=</span><span class="n">category</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s1">&#39;published&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-pub_date&#39;</span><span class="p">)</span>
+
+        <span class="n">blog_post_count</span> <span class="o">=</span> <span class="n">blog_posts</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+        <span class="n">per_page</span> <span class="o">=</span> <span class="mi">10</span>
+
+        <span class="n">paginator</span> <span class="o">=</span> <span class="n">Paginator</span><span class="p">(</span><span class="n">blog_posts</span><span class="p">,</span> <span class="n">per_page</span><span class="p">)</span>
+
+        <span class="n">page</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;page&#39;</span><span class="p">)</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">PageNotAnInteger</span><span class="p">:</span>
+            <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">EmptyPage</span><span class="p">:</span>
+            <span class="n">blog_posts</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">paginator</span><span class="o">.</span><span class="n">num_pages</span><span class="p">)</span>
+
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;blog_posts&#39;</span><span class="p">:</span> <span class="n">blog_posts</span><span class="p">,</span>
+            <span class="s1">&#39;category&#39;</span><span class="p">:</span> <span class="n">category</span><span class="p">,</span>
+            <span class="s1">&#39;blog_post_count&#39;</span><span class="p">:</span> <span class="n">blog_post_count</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="CustomPasswordChangeView">
+<a class="viewcode-back" href="../../views.html#Tech.views.CustomPasswordChangeView">[docs]</a>
+<span class="k">class</span> <span class="nc">CustomPasswordChangeView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles user password change functionality.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        template_name (str): The HTML template used for rendering the password change page.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        get(request, *args, **kwargs): Handles GET requests for displaying the password change page.</span>
+<span class="sd">        post(request, *args, **kwargs): Handles POST requests for changing the user&#39;s password.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;password_change.html&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">form</span> <span class="o">=</span> <span class="n">PasswordChangeForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">form</span> <span class="o">=</span> <span class="n">PasswordChangeForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">user</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">update_session_auth_hash</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;Password changed successfully.&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;password_change&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;old_password&#39;</span> <span class="ow">in</span> <span class="n">form</span><span class="o">.</span><span class="n">errors</span><span class="p">:</span>
+                <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;Old password is incorrect.&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s1">&#39;new_password2&#39;</span> <span class="ow">in</span> <span class="n">form</span><span class="o">.</span><span class="n">errors</span><span class="p">:</span>
+                <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;Passwords do not match. Enter the correct password.&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">})</span></div>
+
+
+
+<div class="viewcode-block" id="CustomPasswordResetView">
+<a class="viewcode-back" href="../../views.html#Tech.views.CustomPasswordResetView">[docs]</a>
+<span class="k">class</span> <span class="nc">CustomPasswordResetView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles user password reset functionality.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        template_name (str): The HTML template used for rendering the password reset page.</span>
+
+<span class="sd">    Methods:</span>
+<span class="sd">        get(request): Handles GET requests for displaying the password reset page.</span>
+<span class="sd">        post(request): Handles POST requests for initiating the password reset process.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;password_reset.html&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+
+        <span class="n">form</span> <span class="o">=</span> <span class="n">PasswordResetForm</span><span class="p">()</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+
+        <span class="n">form</span> <span class="o">=</span> <span class="n">PasswordResetForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="c1"># Process the password reset logic here</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s2">&quot;Password reset isn&#39;t working. Please contact at help@bloggersunity.com.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;password_reset&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">request</span><span class="p">,</span>
+                           <span class="s2">&quot;Password reset isn&#39;t working. Please contact at help@bloggersunity.com.&quot;</span><span class="p">)</span>
+            <span class="n">form</span> <span class="o">=</span> <span class="n">PasswordResetForm</span><span class="p">()</span>  <span class="c1"># Reset the form</span>
+            <span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span>
+            <span class="p">}</span>
+            <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>  <span class="c1"># You can customize this response</span></div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">BloggersUnity 0.0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Tech.views</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2023, Prakash Satvi.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

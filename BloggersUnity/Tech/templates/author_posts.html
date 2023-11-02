@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block title %}{{author.first_name}} {{author.last_name}}{% endblock %}
+{% block content %}
+<main class="container">
+    <div class="d-flex p-2 p-md-4 my-3 bg-primary bg-opacity-10 rounded">
+        <!-- START Author Profile -->
+        <a href="#">
+            <div class="avatar avatar-xxl me-2 me-md-4">
+                <img class="avatar-img rounded-circle" src="{{ author.profile_picture.url }}" width="150" height="150"
+                     alt="avatar">
+            </div>
+        </a>
+        <!-- Info -->
+        <div>
+            <div class="d-sm-flex align-items-center justify-content-between">
+                <div>
+                    <h4 class="m-0">{{ author.first_name }} {{ author.last_name }}</h4>
+                    <small>An editor at BloggersUnity</small>
+                </div>
+            </div>
+            <p class="my-2">{{ author.bio }}</p>
+        </div>
+        <!-- END Author Profile -->
+    </div>
+
+    <div class="container">
+        <!-- Author Related Info -->
+        <div class="row pb-4 mb-4 fst-italic border-bottom">
+            <h4 class="col-10">All posts by {{ author.first_name }} {{ author.last_name }}</h4>
+            <h5 class="col-2">Total Post <span
+                    class="badge bg-primary bg-opacity-10 text-primary">{{ blog_post_count }}</span>
+            </h5>
+        </div>
+    </div>
+
+    <div class="row d-flex pt-3">
+        <!-- START Author Post -->
+        {% for post in blog_posts %}
+        <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-primary">{{ post.get_categories_display }}</strong>
+                    <h3 class="mb-0">{{ post.title }}</h3>
+                    <div class="mb-1 text-muted">{{ post.pub_date | date:"M d, Y"}}</div>
+                    <a href="{% url 'blog_post_detail' post.slug %}" class="stretched-link">Continue reading</a>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                    {% if post.image %}
+                    <img class="bd-placeholder-img" src="{{ post.image.url }}" width="200" height="250"
+                         alt="Placeholder: Thumbnail">
+                    {% endif %}
+                </div>
+            </div>
+            <!-- END Author Post -->
+        </div>
+        {% empty %}
+        <p>No published posts to display.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination START -->
+    {% if blog_posts.paginator.num_pages > 1 %}
+    <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
+        <!-- Content -->
+        <p class="mb-sm-0 text-center text-sm-start">Showing {{ blog_posts.start_index }} to
+            {{ blog_posts.end_index }} of {{ blog_post_count }} entries</p>
+        <!-- Pagination -->
+        <nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
+            <ul class="pagination pagination-sm pagination-bordered mb-0">
+                {% if blog_posts.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ blog_posts.previous_page_number }}">Prev</a>
+                </li>
+                {% endif %}
+
+                {% for page in blog_posts.paginator.page_range %}
+                {% if page == blog_posts.number %}
+                <li class="page-item active">
+                    <span class="page-link">{{ page }}</span>
+                </li>
+                {% else %}
+                {% if page >= blog_posts.number|add:"-4" and page <= blog_posts.number|add:"4" %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                </li>
+                {% elif page == blog_posts.number|add:"5" or page == blog_posts.number|add:"-5" %}
+                <li class="page-item">
+                    <span class="page-link" tabindex="-1" aria-disabled="true">...</span>
+                </li>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+
+                {% if blog_posts.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ blog_posts.next_page_number }}">Next</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+    </div>
+    {% endif %}
+    <!-- Pagination END -->
+</main>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+
+<!-- Section Content -->
+<section class="pt-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 mx-auto text-center">
+                <h1 class="display-4">Contact us</h1>
+                <hr class="my-5">
+                <div class="row">
+                    <!-- Success Message -->
+                    {% if success_message %}
+                    <div class="messages">
+                        <div class="alert alert-success alert-dismissible fade show">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            {{ success_message }}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="col-12">
+                        <p>Please fill in the form below and we will contact you very soon. Your email address will not
+                            be published.</p>
+                        <!-- Form START -->
+                        <form class="contact-form" id="contact-form" name="contactform" method="POST">
+                            {% csrf_token %}
+                            <!-- Main form -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <!-- first name -->
+                                    <div class="mb-3">
+                                        <input required="" id="con-first-name" name="first_name" type="text"
+                                               class="form-control"
+                                               placeholder="First Name">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- last name -->
+                                    <div class="mb-3">
+                                        <input required="" id="con-last-name" name="last_name" type="text"
+                                               class="form-control"
+                                               placeholder="Last Name">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <!-- email -->
+                                    <div class="mb-3">
+                                        <input required="" id="con-email" name="email" type="email" class="form-control"
+                                               placeholder="E-mail">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <!-- Subject -->
+                                    <div class="mb-3">
+                                        <input required="" id="con-subject" name="subject" type="text"
+                                               class="form-control" placeholder="Subject">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <!-- Message -->
+                                    <div class="mb-3">
+                                        <textarea required="" id="con-message" name="message" cols="40" rows="6"
+                                                  class="form-control" placeholder="Message"></textarea>
+                                    </div>
+                                </div>
+                                <!-- submit button -->
+                                <div class="col-md-12 text-start">
+                                    <button class="btn btn-primary w-100"
+                                            type="submit">Send Message
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- Form END -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,18 +1,78 @@
 {% extends 'base.html' %}
 {% block title %}Blog{% endblock %}
-
 {% block content %}
-<h2>Blog</h2>
-<div class="blog-post-list">
-    {% for post in blog_posts %}
-    <div class="blog-post">
-        <h3>{{ post.title }}</h3>
-        <p>{{ post.content }}</p>
-        <p>Published on: {{ post.pub_date }}</p>
-        <!-- Add more details or actions for each post -->
+
+<!-- Main Content -->
+<main class="container">
+    <!-- START Blog Post -->
+    <div class="row">
+        {% for post in blog_posts %}
+        <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-primary">{{ post.get_categories_display }}</strong>
+                    <h3 class="mb-0">{{ post.title | truncatewords:3 }}</h3>
+                    <div class="mb-1 text-muted">{{ post.pub_date | date:"M d, Y"}} by {{ post.author }}</div>
+                    <div class="mb-1 text-muted">{{ post.content | truncatewords:10 }}</div>
+                    <a href="{% url 'blog_post_detail' post.slug %}" class="stretched-link">Continue reading</a>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                    {% if post.image %}
+                    <img class="bd-placeholder-img" src="{{ post.image.url }}" width="220" height="240"
+                         alt="Placeholder: Thumbnail">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No published posts to display.</p>
+        {% endfor %}
     </div>
-    {% empty %}
-    <p>No published posts to display.</p>
-    {% endfor %}
-</div>
+    <!-- END Blog Post -->
+
+    <!-- Pagination START -->
+    {% if blog_posts.paginator.num_pages > 1 %}
+    <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
+        <!-- Content -->
+        <p class="mb-sm-0 text-center text-sm-start">Showing {{ blog_posts.start_index }} to
+            {{ blog_posts.end_index }} of {{ blog_post_count }} entries</p>
+        <!-- Pagination -->
+        <nav class="mb-sm-0 d-flex justify-content-center" aria-label="navigation">
+            <ul class="pagination pagination-sm pagination-bordered mb-0">
+                {% if blog_posts.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ blog_posts.previous_page_number }}">Prev</a>
+                </li>
+                {% endif %}
+
+                {% for page in blog_posts.paginator.page_range %}
+                {% if page == blog_posts.number %}
+                <li class="page-item active">
+                    <span class="page-link">{{ page }}</span>
+                </li>
+                {% else %}
+                {% if page >= blog_posts.number|add:"-4" and page <= blog_posts.number|add:"4" %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+                </li>
+                {% elif page == blog_posts.number|add:"5" or page == blog_posts.number|add:"-5" %}
+                <li class="page-item">
+                    <span class="page-link" tabindex="-1" aria-disabled="true">...</span>
+                </li>
+                {% endif %}
+                {% endif %}
+                {% endfor %}
+
+                {% if blog_posts.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ blog_posts.next_page_number }}">Next</a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+    </div>
+    {% endif %}
+    <!-- Pagination END -->
+</main>
 {% endblock %}
