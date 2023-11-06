@@ -1,10 +1,10 @@
-# BloggerUnity
+# BloggersUnity
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 ## Overview
 
-BloggerUnity is a web application that allows users to create and publish blog posts. It's built with [Django](https://www.djangoproject.com/) 
+BloggersUnity is a web application that allows users to create and publish blog posts. It's built with [Django](https://www.djangoproject.com/) 
 and offers features like user authentication, creating, editing, and deleting posts.
 
 ## Features
@@ -49,7 +49,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 6. **Documentation**
 
-For detailed documentation, see the BloggerUnity Documentation.
+For detailed documentation, see the BloggersUnity Documentation.
 
 7. **Authors**
 
