@@ -1,1 +1,1 @@
-web: gunicorn BloggersUnity.wsgi.py
+web: gunicorn BloggersUnity.wsgi
