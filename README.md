@@ -16,9 +16,6 @@ and offers features like user authentication, creating, editing, and deleting po
 - User profile with avatar and contact information
 - ...
 
-## Demo
-
-For a live demo of BloggerUnity, visit [https://www.example.com](https://www.example.com).
 
 ## Getting Started
 
