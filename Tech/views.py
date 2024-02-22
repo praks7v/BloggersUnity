@@ -28,7 +28,7 @@ class HomeView(View):
         get(request): Handles GET requests for displaying the home page.
     """
 
-    template_name = 'home.html'
+    template_name = 'Tech/home.html'
 
     def get(self, request):
         blog_posts = BlogPost.objects.all().order_by('-pub_date')
@@ -49,7 +49,7 @@ class AboutView(View):
     """
 
     def get(self, request):
-        return render(request, 'about.html')
+        return render(request, 'Tech/about.html')
 
 
 class ContactView(View):
@@ -64,7 +64,7 @@ class ContactView(View):
         post(request): Handles POST requests for processing contact form submissions.
     """
 
-    template_name = 'contact.html'
+    template_name = 'Tech/contact.html'
 
     def get(self, request):
         form = ContactForm()
@@ -93,7 +93,7 @@ class FaqsView(View):
     """
 
     def get(self, request):
-        return render(request, 'faqs.html')
+        return render(request, 'Tech/faqs.html')
 
 
 class PrivacyPolicyView(View):
@@ -105,7 +105,7 @@ class PrivacyPolicyView(View):
     """
 
     def get(self, request):
-        return render(request, 'privacy_policy.html')
+        return render(request, 'Tech/privacy_policy.html')
 
 
 class SignupView(View):
@@ -120,7 +120,7 @@ class SignupView(View):
         get(request): Handles GET requests for displaying the signup page.
         post(request): Handles POST requests for user registration and form submissions.
     """
-    template_name = 'signup.html'
+    template_name = 'Tech/signup.html'
 
     form_class = CustomSignUpForm
 
@@ -150,7 +150,7 @@ class CustomLoginView(LoginView):
         get(request, *args, **kwargs): Handles GET requests for displaying the login page.
         post(request, *args, **kwargs): Handles POST requests for user login and form submissions.
     """
-    template_name = 'login.html'
+    template_name = 'Tech/login.html'
 
     def get(self, request, *args, **kwargs):
         form = AuthenticationForm()
@@ -191,7 +191,7 @@ class UserProfileView(LoginRequiredMixin, View):
         post(request): Handles POST requests for user profile updates and form submissions.
     """
 
-    template_name = 'user_profile.html'
+    template_name = 'Tech/user_profile.html'
 
     def get(self, request):
         user = request.user
@@ -222,7 +222,7 @@ class DashboardView(LoginRequiredMixin, View):
         get(request): Handles GET requests for displaying the user dashboard.
     """
 
-    template_name = 'dashboard.html'
+    template_name = 'Tech/dashboard.html'
     per_page = 10
 
     def get(self, request):
@@ -278,7 +278,7 @@ class CreateBlogPostView(LoginRequiredMixin, View):
         post(request): Handles POST requests for creating new blog posts.
     """
 
-    template_name = 'create_blog_post.html'
+    template_name = 'Tech/create_blog_post.html'
 
     def get(self, request):
         form = BlogPostForm()
@@ -291,7 +291,7 @@ class CreateBlogPostView(LoginRequiredMixin, View):
             blog_post.author = request.user
             blog_post.save()
 
-            return redirect('dashboard')
+            return redirect('Tech/dashboard')
 
 
 class EditBlogPostView(LoginRequiredMixin, View):
@@ -306,7 +306,7 @@ class EditBlogPostView(LoginRequiredMixin, View):
         post(request, blog_post_id): Handles POST requests for editing existing blog posts.
     """
 
-    template_name = 'edit_blog_post.html'
+    template_name = 'Tech/edit_blog_post.html'
 
     def get(self, request, blog_post_id):
         blog_post = get_object_or_404(BlogPost, id=blog_post_id, author=request.user)
@@ -336,7 +336,7 @@ class DeleteBlogPostView(LoginRequiredMixin, View):
         post(request, blog_post_id): Handles POST requests for deleting existing blog posts.
     """
 
-    template_name = 'delete_blog_post.html'
+    template_name = 'Tech/delete_blog_post.html'
 
     def get(self, request, blog_post_id):
         blog_post = get_object_or_404(BlogPost, id=blog_post_id, author=request.user)
@@ -362,7 +362,7 @@ class BlogPostsView(View):
         get(request): Handles GET requests for displaying the list of all blog posts.
     """
 
-    template_name = 'blog_post_list.html'
+    template_name = 'Tech/blog_post_list.html'
     per_page = 10
 
     def get(self, request):
@@ -393,7 +393,7 @@ class BlogPostDetailView(View):
         get(request, post_slug): Handles GET requests for displaying a detailed view of a single blog post.
     """
 
-    template_name = 'blog_post_detail.html'
+    template_name = 'Tech/blog_post_detail.html'
 
     def get(self, request, post_slug):
         current_post = get_object_or_404(BlogPost, slug=post_slug)
@@ -420,7 +420,7 @@ class AuthorPostView(View):
         get(request, author_name): Handles GET requests for displaying the author's posts.
     """
 
-    template_name = 'author_posts.html'
+    template_name = 'Tech/author_posts.html'
 
     def get(self, request, author_name):
         # Split the author_name into first name and last name
@@ -474,7 +474,7 @@ class CategoryView(View):
         get(request, category): Handles GET requests for displaying category-specific blog posts.
     """
 
-    template_name = 'category_posts.html'
+    template_name = 'Tech/category_posts.html'
 
     def get(self, request, category):
 
@@ -517,7 +517,7 @@ class CustomPasswordChangeView(LoginRequiredMixin, View):
         post(request, *args, **kwargs): Handles POST requests for changing the user's password.
     """
 
-    template_name = 'password_change.html'
+    template_name = 'Tech/password_change.html'
 
     def get(self, request, *args, **kwargs):
 
@@ -556,7 +556,7 @@ class CustomPasswordResetView(LoginRequiredMixin, View):
         post(request): Handles POST requests for initiating the password reset process.
     """
 
-    template_name = 'password_reset.html'
+    template_name = 'Tech/password_reset.html'
 
     def get(self, request):
 

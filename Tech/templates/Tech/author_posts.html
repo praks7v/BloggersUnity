@@ -1,33 +1,61 @@
-{% extends 'base.html' %}
-{% block title %}{{ category }}{% endblock %}
-
+{% extends 'Tech/base.html' %}
+{% block title %}{{author.first_name}} {{author.last_name}}{% endblock %}
 {% block content %}
-
-<!-- Main Content -->
 <main class="container">
-    <div class="row pt-3">
-        <!-- START Blog Post -->
+    <div class="d-flex p-2 p-md-4 my-3 bg-primary bg-opacity-10 rounded">
+        <!-- START Author Profile -->
+        <a href="#">
+            <div class="avatar avatar-xxl me-2 me-md-4">
+                <img class="avatar-img rounded-circle" src="{{ author.profile_picture.url }}" width="150" height="150"
+                     alt="avatar">
+            </div>
+        </a>
+        <!-- Info -->
+        <div>
+            <div class="d-sm-flex align-items-center justify-content-between">
+                <div>
+                    <h4 class="m-0">{{ author.first_name }} {{ author.last_name }}</h4>
+                    <small>An editor at BloggersUnity</small>
+                </div>
+            </div>
+            <p class="my-2">{{ author.bio }}</p>
+        </div>
+        <!-- END Author Profile -->
+    </div>
+
+    <div class="container">
+        <!-- Author Related Info -->
+        <div class="row pb-4 mb-4 fst-italic border-bottom">
+            <h4 class="col-10">All posts by {{ author.first_name }} {{ author.last_name }}</h4>
+            <h5 class="col-2">Total Post <span
+                    class="badge bg-primary bg-opacity-10 text-primary">{{ blog_post_count }}</span>
+            </h5>
+        </div>
+    </div>
+
+    <div class="row d-flex pt-3">
+        <!-- START Author Post -->
         {% for post in blog_posts %}
         <div class="col-md-6">
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">
-                    <h3 class="mb-0">{{ post.title| truncatewords:4 }}</h3>
-                    <div class="mb-1 text-muted">{{ post.pub_date |date:"F d, Y" }} by {{ post.author }}</div>
-                    <div class="mb-1 text-muted">{{ post.content|truncatewords:7 }}</div>
+                    <strong class="d-inline-block mb-2 text-primary">{{ post.get_categories_display }}</strong>
+                    <h3 class="mb-0">{{ post.title }}</h3>
+                    <div class="mb-1 text-muted">{{ post.pub_date | date:"M d, Y"}}</div>
                     <a href="{% url 'blog_post_detail' post.slug %}" class="stretched-link">Continue reading</a>
                 </div>
                 <div class="col-auto d-none d-lg-block">
                     {% if post.image %}
-                    <img class="bd-placeholder-img" src="{{ post.image.url }}" width="230" height="260"
+                    <img class="bd-placeholder-img" src="{{ post.image.url }}" width="200" height="250"
                          alt="Placeholder: Thumbnail">
                     {% endif %}
                 </div>
             </div>
+            <!-- END Author Post -->
         </div>
         {% empty %}
         <p>No published posts to display.</p>
         {% endfor %}
-        <!-- END Blog Post -->
     </div>
 
     <!-- Pagination START -->
@@ -70,6 +98,7 @@
                 {% endif %}
             </ul>
         </nav>
+
     </div>
     {% endif %}
     <!-- Pagination END -->
