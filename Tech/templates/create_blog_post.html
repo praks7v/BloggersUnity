@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}Create Blog Post{% endblock %}
+{% block content %}
+
+<!-- Main Content -->
+<main class="container mt-5">
+    <h2>Create Blog Post</h2>
+    <!-- Form START -->
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <!-- Title -->
+            <label for="id_title" class="form-label">Title</label>
+            <div class="input-group">
+                <input type="text" name="title" class="form-control" id="id_title" placeholder="Title">
+            </div>
+        </div>
+        <div class="mb-3">
+            <!-- Content -->
+            <label for="id_content" class="form-label">Content</label>
+            <div class="input-group">
+                <textarea name="content" id="id_content" rows="10"
+                          class="form-control" placeholder="Write your content here..."></textarea>
+            </div>
+        </div>
+        <div class="mb-3">
+            <!-- Categories -->
+            <label for="id_categories" class="form-label">Category</label>
+            <select name="categories" id="id_categories">
+                <option value="Aerospace">Aerospace</option>
+                <option value="Artificial_Intelligence">Artificial Intelligence</option>
+                <option value="Automotive">Automotive</option>
+                <option value="Biotechnology">Biotechnology</option>
+                <option value="Cybersecurity">Cybersecurity</option>
+                <option value="Fintech">Fintech</option>
+                <option value="Gaming">Gaming</option>
+                <option value="IoT">IoT</option>
+                <option value="Robotics">Robotics</option>
+                <option value="Other" selected="">Other</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <!-- Status -->
+            <label for="id_status" class="form-label">Status</label>
+            <select name="status" id="id_status">
+                <option value="draft">Draft</option>
+                <option value="published" selected="">Published</option>
+                <option value="archived">Archived</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <!-- Thumbnail -->
+            <label for="id_image">Thumbnail</label>
+            <input type="file" name="image" accept="image/*" id="id_image">
+        </div>
+
+        <div class="mb-3">
+            <!-- Create Button & Cancel -->
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a href="{% url 'dashboard' %}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+    <!-- Form END -->
+</main>
+{% endblock %}

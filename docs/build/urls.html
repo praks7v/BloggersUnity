@@ -1,0 +1,257 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Urls &#8212; BloggersUnity 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=532c1bf3" />
+    
+    <script src="_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Views" href="views.html" />
+    <link rel="prev" title="Models" href="models.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="views.html" title="Views"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="models.html" title="Models"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">BloggersUnity 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Urls</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="module-Tech.urls">
+<span id="urls"></span><h1>Urls<a class="headerlink" href="#module-Tech.urls" title="Link to this heading">¶</a></h1>
+<section id="project-s-urls">
+<span id="module-BloggersUnity.urls"></span><h2>Project’s Urls<a class="headerlink" href="#project-s-urls" title="Link to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>Imports for project’s urls</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+<span class="linenos">2</span><span class="kn">from</span> <span class="nn">django.conf.urls.static</span> <span class="kn">import</span> <span class="n">static</span>
+<span class="linenos">3</span><span class="kn">from</span> <span class="nn">django.contrib</span> <span class="kn">import</span> <span class="n">admin</span>
+<span class="linenos">4</span><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span><span class="p">,</span> <span class="n">include</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>Urlpatterns of Project’s Urls</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+<span class="linenos">2</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;admin/&#39;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>
+<span class="linenos">3</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;Tech.urls&#39;</span><span class="p">)),</span>
+<span class="linenos">4</span><span class="p">]</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>Serve media files during development</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span>
+<span class="linenos">2</span>   <span class="n">urlpatterns</span> <span class="o">+=</span> <span class="n">static</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_URL</span><span class="p">,</span> <span class="n">document_root</span><span class="o">=</span><span class="n">settings</span><span class="o">.</span><span class="n">MEDIA_ROOT</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="tech-apps-urls">
+<h2>Tech apps Urls<a class="headerlink" href="#tech-apps-urls" title="Link to this heading">¶</a></h2>
+</section>
+<section id="imports">
+<h2>Imports<a class="headerlink" href="#imports" title="Link to this heading">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+<span class="linenos">2</span><span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
+<span class="linenos">3</span><span class="kn">from</span> <span class="nn">.views</span> <span class="kn">import</span> <span class="n">CustomPasswordChangeView</span><span class="p">,</span> <span class="n">CustomPasswordResetView</span>
+</pre></div>
+</div>
+</section>
+<section id="main-pages-urls">
+<h2>Main pages Urls<a class="headerlink" href="#main-pages-urls" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><cite>/</cite>: Home page.</p></li>
+<li><p><cite>/about/</cite>: About page.</p></li>
+<li><p><cite>/contact/</cite>: Contact page.</p></li>
+<li><p><cite>/faqs/</cite>: Frequently Asked Questions page.</p></li>
+<li><p><cite>/privacy_policy/</cite>: Privacy Policy page.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">HomeView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;home&#39;</span><span class="p">),</span>
+<span class="linenos">2</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;about/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">AboutView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;about&#39;</span><span class="p">),</span>
+<span class="linenos">3</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;contact/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">ContactView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;contact&#39;</span><span class="p">),</span>
+<span class="linenos">4</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;faqs/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">FaqsView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;faqs&#39;</span><span class="p">),</span>
+<span class="linenos">5</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;privacy_policy/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">PrivacyPolicyView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;privacy_policy&#39;</span><span class="p">),</span>
+</pre></div>
+</div>
+</section>
+<section id="user-related-urls">
+<h2>User-Related URLs<a class="headerlink" href="#user-related-urls" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><cite>/signup/</cite>: User registration.</p></li>
+<li><p><cite>/login/</cite>: User login.</p></li>
+<li><p><cite>/logout/</cite>: User logout.</p></li>
+<li><p><cite>/user/profile/</cite>: User profile.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;signup/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">SignupView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;signup&#39;</span><span class="p">),</span>
+<span class="linenos">2</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;login/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">CustomLoginView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;login&#39;</span><span class="p">),</span>
+<span class="linenos">3</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;logout/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">CustomLogoutView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;logout&#39;</span><span class="p">),</span>
+<span class="linenos">4</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;user/profile/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">UserProfileView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;user_profile&#39;</span><span class="p">),</span>
+</pre></div>
+</div>
+</section>
+<section id="user-blog-post-urls">
+<h2>User Blog Post URLs<a class="headerlink" href="#user-blog-post-urls" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><cite>/dashboard/</cite>: User’s blog post dashboard.</p></li>
+<li><p><cite>/create/</cite>: Create a new blog post.</p></li>
+<li><p><cite>/blog/&lt;int:blog_post_id&gt;/edit/</cite>: Edit a specific blog post.</p></li>
+<li><p><cite>/blog/&lt;int:blog_post_id&gt;/delete/</cite>: Delete a specific blog post.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;dashboard/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">DashboardView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;dashboard&#39;</span><span class="p">),</span>
+<span class="linenos">2</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;create/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">CreateBlogPostView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;create_blog_post&#39;</span><span class="p">),</span>
+<span class="linenos">3</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;blog/&lt;int:blog_post_id&gt;/edit&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">EditBlogPostView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;edit_blog_post&#39;</span><span class="p">),</span>
+<span class="linenos">4</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;blog/&lt;int:blog_post_id&gt;/delete&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">DeleteBlogPostView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;delete_blog_post&#39;</span><span class="p">),</span>
+</pre></div>
+</div>
+</section>
+<section id="blog-post-urls">
+<h2>Blog Post URLs<a class="headerlink" href="#blog-post-urls" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><cite>/blog/</cite>: List of all blog posts.</p></li>
+<li><p><cite>/blog/&lt;slug:post_slug&gt;/</cite>: Detailed view of a specific blog post.</p></li>
+<li><p><cite>/author-posts/&lt;str:author_name&gt;/</cite>: Blog posts by a specific author.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;blog/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">BlogPostsView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;blog_post_lists&#39;</span><span class="p">),</span>
+<span class="linenos">2</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;blog/&lt;slug:post_slug&gt;/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">BlogPostDetailView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;blog_post_detail&#39;</span><span class="p">),</span>
+<span class="linenos">3</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;author-posts/&lt;str:author_name&gt;/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">AuthorPostView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;author_posts&#39;</span><span class="p">),</span>
+</pre></div>
+</div>
+</section>
+<section id="category-urls">
+<h2>Category URLs<a class="headerlink" href="#category-urls" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><cite>/category/</cite>: List of all categories.</p></li>
+<li><p><cite>/category/&lt;str:category&gt;/</cite>: Blog posts in a specific category.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;category/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">CategoryView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;all_categories&#39;</span><span class="p">),</span>
+<span class="linenos">2</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;category/&lt;str:category&gt;/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">CategoryView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;category_posts&#39;</span><span class="p">),</span>
+</pre></div>
+</div>
+</section>
+<section id="password-related-urls">
+<h2>Password-Related URLs<a class="headerlink" href="#password-related-urls" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><cite>/password_change/</cite>: Change password.</p></li>
+<li><p><cite>/password_reset/</cite>: Reset password.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;password_change/&#39;</span><span class="p">,</span> <span class="n">CustomPasswordChangeView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;password_change&#39;</span><span class="p">),</span>
+<span class="linenos">2</span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;password_reset/&#39;</span><span class="p">,</span> <span class="n">CustomPasswordResetView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;password_reset&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Urls</a><ul>
+<li><a class="reference internal" href="#project-s-urls">Project’s Urls</a></li>
+<li><a class="reference internal" href="#tech-apps-urls">Tech apps Urls</a></li>
+<li><a class="reference internal" href="#imports">Imports</a></li>
+<li><a class="reference internal" href="#main-pages-urls">Main pages Urls</a></li>
+<li><a class="reference internal" href="#user-related-urls">User-Related URLs</a></li>
+<li><a class="reference internal" href="#user-blog-post-urls">User Blog Post URLs</a></li>
+<li><a class="reference internal" href="#blog-post-urls">Blog Post URLs</a></li>
+<li><a class="reference internal" href="#category-urls">Category URLs</a></li>
+<li><a class="reference internal" href="#password-related-urls">Password-Related URLs</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="models.html"
+                          title="previous chapter">Models</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="views.html"
+                          title="next chapter">Views</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/urls.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="views.html" title="Views"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="models.html" title="Models"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">BloggersUnity 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Urls</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2023, Prakash Satvi.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

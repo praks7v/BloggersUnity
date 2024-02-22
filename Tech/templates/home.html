@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<!-- Main Content -->
+<main class="container">
+    <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
+        <!-- Latest Blog Post -->
+        <div class="col-md-6 px-0">
+            {% for post in blog_posts %}
+            {% if forloop.first %}
+            <h1 class="display-6 fst-italic">{{ post.title }}</h1>
+            <p class="lead my-3">{{ post.content|truncatewords:20 }}</p>
+            <p class="lead mb-0"><a href="{% url 'blog_post_detail' post.slug %}" class="text-white fw-bold">Continue
+                reading...</a></p>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Full View Blog Post -->
+    <div class="row mb-2">
+        <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <h5 class="mb-0">{{ blog_posts.1.title }}</h5>
+                    <div class="mb-1 text-muted">{{ blog_posts.1.pub_date | date:"M d" }}by {{ blog_posts.1.author }}
+                    </div>
+                    <p class="card-text mb-auto">{{ blog_posts.1.content|truncatewords:15 }}</p>
+                    <a href="{% url 'blog_post_detail' blog_posts.1.slug %}" class="stretched-link">Continue reading</a>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                    {% if blog_posts.1.image %}
+                    <img class="bd-placeholder-img" src="{{ blog_posts.1.image.url }}" width="200" height="240"
+                         alt="Placeholder: Thumbnail">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <h5 class="mb-0">{{ blog_posts.2.title }}</h5>
+                    <div class="mb-1 text-muted">{{ blog_posts.2.pub_date | date:"M d" }} by {{ blog_posts.2.author }}
+                    </div>
+                    <p class="card-text mb-auto">{{ blog_posts.2.content|truncatewords:15 }}</p>
+                    <a href="{% url 'blog_post_detail' blog_posts.2.slug %}" class="stretched-link">Continue reading</a>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                    {% if blog_posts.2.image %}
+                    <img class="bd-placeholder-img" src="{{ blog_posts.2.image.url }}" width="200" height="240"
+                         alt="Placeholder: Thumbnail">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sidebar START -->
+    <div class="row g-5">
+        <div class="col-md-8">
+            <h3 class="pb-4 mb-4 fst-italic border-bottom">
+                From {{ blog_posts.3.get_categories_display }}
+            </h3>
+
+            <article class="blog-post border-bottom">
+                <h2 class="blog-post-title">{{ blog_posts.3.title }}</h2>
+                <p class="blog-post-meta">{{ blog_posts.3.pub_date | date:"F d, Y" }} by <a
+                        class="text-decoration-none"
+                        href="{% url 'author_posts' author_name=blog_posts.3.author %}">
+                    {{ blog_posts.3.author }}</a>
+                </p>
+                <p>{{ blog_posts.3.content | linebreaksbr }}</p>
+            </article>
+            <h3 class="pb-4 mt-4 fst-italic border-bottom">
+                From {{ blog_posts.4.get_categories_display}}
+            </h3>
+            <article class="blog-post">
+                <h2 class="blog-post-title">{{ blog_posts.4.title }}</h2>
+                <p class="blog-post-meta">{{ blog_posts.4.pub_date | date:"F d, Y" }} by <a
+                        class="text-decoration-none"
+                        href="{% url 'author_posts' author_name=blog_posts.4.author %}">
+                    {{ blog_posts.4.author }}</a></p>
+                <p>{{ blog_posts.4.content | linebreaksbr }}</p>
+            </article>
+        </div>
+
+        <div class="col-md-4">
+            <div class="position-sticky" style="top: 2rem;">
+                <div class="p-4">
+                    <h4 class="fst-italic">All Blog Posts</h4>
+                    <ol class="list-unstyled mb-0">
+                        <li><a class="fst-italic" href="/blog/" style="text-decoration: none;">Read all posts</a></li>
+                    </ol>
+                </div>
+                <div class="p-4">
+                    <h4 class="fst-italic">All Categories</h4>
+                    <ol class="list-unstyled mb-0">
+                        <li><a href="/category/aerospace/" style="text-decoration: none;">Aerospace</a></li>
+                        <li><a href="/category/artificial_intelligence/"
+                               style="text-decoration: none;">Artificial Intelligence</a></li>
+                        <li><a href="/category/automotive/" style="text-decoration: none;">Automotive</a></li>
+                        <li><a href="/category/biotechnology/" style="text-decoration: none;">Biotechnology</a></li>
+                        <li><a href="/category/cybersecurity/" style="text-decoration: none;">Cybersecurity</a></li>
+                        <li><a href="/category/fintech/" style="text-decoration: none;">Fintech</a></li>
+                        <li><a href="/category/gaming/" style="text-decoration: none;">Gaming</a></li>
+                        <li><a href="/category/iot/" style="text-decoration: none;">Internet of Things</a></li>
+                        <li><a href="/category/robotics/" style="text-decoration: none;">Robotics</a></li>
+                    </ol>
+                </div>
+
+                <div class="p-4">
+                    <h4 class="fst-italic">Social Media</h4>
+                    <ol class="list-unstyled">
+                        <li><a href="https://github.com/praks7v" style="text-decoration: none;">GitHub</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Sidebar END -->
+</main>
+{% endblock %}

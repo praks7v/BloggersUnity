@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+
+<!-- Section Content -->
+<section class="container">
+    <div class="row">
+        <div class="col-md-10 col-lg-8 col-xl-6 mx-auto mt-3">
+            <div class="bg-primary bg-opacity-10 rounded p-4 p-sm-5 ">
+                <h2>Log in to your account</h2>
+                <!-- Form START -->
+                <form class="mt-4" method="post">
+                    {% csrf_token %}
+
+                    <!-- Username -->
+                    <div class="mb-3">
+                        <label class="form-label" for="id_username">Username or Email</label>
+                        <input type="text" class="form-control" id="id_username" name="username"
+                               placeholder="username or email" required>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="mb-3">
+                        <label class="form-label" for="id_password">Password</label>
+                        <input type="password" class="form-control" id="id_password" name="password"
+                               placeholder="Your password" required>
+                    </div>
+
+                    <!-- Form Errors -->
+                    {% if form.errors %}
+                    <div class="text-danger mb-3">
+                        {{ form.non_field_errors.as_ul }}
+                    </div>
+                    {% endif %}
+
+                    <!-- Button -->
+                    <div class="row align-items-center">
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-success">Log in</button>
+                        </div>
+                        <div class="col-sm-8 text-sm-end">
+                            <span>Don't have an account? <a href="{% url 'signup' %}"><u>Sign up</u></a>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+                <!-- Form END -->
+                <span>
+                    <a href="{% url 'password_reset' %}"><u>Forgot Password?</u></a>
+                </span>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title Tag -->
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Add the Bootstrap CSS link -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Add the Bootstrap Icons CSS link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+
+</head>
+
+<body>
+
+
+<!-- Navbar -->
+<header class="navbar-light navbar-sticky header-static">
+    <!-- Logo Nav START -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <!-- Logo START -->
+            <a class="navbar-brand me-3" href="{% url 'home' %}">
+                <h3 class="navbar-brand-item">BloggersUnity</h3>
+            </a>
+            <!-- Logo END -->
+            <!-- Responsive Navbar Toggler -->
+            <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="true"
+                    aria-label="Toggle navigation">
+                <span class="text-body h6 d-none d-sm-inline-block">Menu</span>
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Main navbar START-->
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav navbar-nav-scroll mx-auto">
+
+                    <!-- Nav Home -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="{% url 'home' %}" id="homeMenu"
+                           data-bs-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">Home</a>
+                        <ul class="dropdown-menu" aria-labelledby="homeMenu">
+                            <li><a class="dropdown-item" href="{% url 'home' %}">Home</a></li>
+                            <li><a class="dropdown-item" href="/blog/">Post</a></li>
+
+                        </ul>
+                    </li>
+
+                    <!-- Nav Pages -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="pagesMenu" data-bs-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false">Pages</a>
+                        <ul class="dropdown-menu" aria-labelledby="pagesMenu">
+                            <li><a class="dropdown-item" href="/about/">About</a></li>
+                            <li><a class="dropdown-item" href="/contact/">Contact</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Nav Categories -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="postMenu" data-bs-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false">Post Categories</a>
+                        <ul class="dropdown-menu" aria-labelledby="postMenu">
+                            <li><a class="dropdown-item" href="/category/aerospace/">Aerospace</a></li>
+                            <li><a class="dropdown-item" href="/category/artificial_intelligence/">Artificial
+                                Intelligence</a></li>
+                            <li><a class="dropdown-item" href="/category/automotive/">Automotive</a></li>
+                            <li><a class="dropdown-item" href="/category/biotechnology/">Biotechnology</a></li>
+                            <li><a class="dropdown-item" href="/category/cybersecurity/">Cybersecurity</a></li>
+                            <li><a class="dropdown-item" href="/category/fintech/">Fintech</a></li>
+                            <li><a class="dropdown-item" href="/category/gaming/">Gaming</a></li>
+                            <li><a class="dropdown-item" href="/category/iot/">Internet of Things</a></li>
+                            <li><a class="dropdown-item" href="/category/robotics/">Robotics</a></li>
+                        </ul>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <!-- START Nav Authenticated User -->
+                    <li class="nav-item"><a class="nav-link" href="/dashboard/">Dashboard</a></li>
+                    <!-- START Nav Profile -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="{% url 'user_profile' %}" id="UserProfile"
+                           data-bs-toggle="dropdown"
+                           aria-haspopup="true"
+                           aria-expanded="false">User Profile</a>
+                        <ul class="dropdown-menu" aria-labelledby="postMenu">
+                            <li class="px-3">
+                                <div class="d-flex align-items-center">
+                                    <!-- Profile Picture -->
+                                    <div class="avatar me-3">
+                                        {% if user.profile_picture %}
+                                        <img class="avatar-img rounded-circle shadow"
+                                             src="{{ user.profile_picture.url }}"
+                                             width="50" height="50" alt="avatar">
+                                        {% else %}
+                                        <img class="avatar-img rounded-circle shadow"
+                                             src=""
+                                             width="50" height="50" alt="avatar">
+                                        {% endif %}
+
+                                    </div>
+                                    <div>
+                                    <span class="h6 mt-2 mt-sm-0">
+                                        {{ user.first_name }} {{ user.last_name }}</span>
+                                        <p class="small m-0">{{ user.email }}</p>
+                                    </div>
+                                </div>
+                                <hr>
+                            </li>
+                            <li><a class="dropdown-item" href="{% url 'user_profile' %}"><i
+                                    class="bi bi-person fa-fw me-2"></i>Edit Profile</a></li>
+                            <li><a class="dropdown-item" href="/create/"><i class="bi bi-pen fa-fw me-2"></i>Create a
+                                Blog</a></li>
+                            <li><a class="dropdown-item" href="/dashboard/"><i
+                                    class="bi bi-pencil-square fa-fw me-2"></i>Edit Post</a></li>
+                            <li><a class="dropdown-item" href="/contact/"><i class="bi bi-info-circle fa-fw me-2"></i>Help</a>
+                            </li>
+                            <li class="dropdown-divider mb-2"></li>
+                            <li><a class="dropdown-item" href="/logout/"><i class="bi bi-power fa-fw me-2"></i>Sign Out</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- END Nav Profile -->
+                    {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Log In</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Sign Up</a></li>
+                    <!-- END Nav Authenticated User -->
+                    {% endif %}
+                </ul>
+            </div>
+            <!-- Main navbar END-->
+        </div>
+    </nav>
+    <!-- Logo Nav END -->
+</header>
+<div id="sticky-space"></div>
+
+{% block content %}
+{% endblock %}
+
+<!-- Footer -->
+<footer class="pt-5">
+    <div class="bg-dark-overlay-3 mt-5">
+        <div class="container">
+            <div class="row align-items-center justify-content-md-between py-4">
+                <div class="col-lg-6">
+                    <!-- Copyright -->
+                    <div class="text-center text-muted text-lg-start">©2023 BloggersUnity. All rights reserved
+                    </div>
+                </div>
+                <div class="col-lg-6 d-sm-flex align-items-center justify-content-center justify-content-lg-end">
+                    <!-- Links -->
+                    <ul class="nav text-center text-sm-end justify-content-center justify-content-center mt-3 mt-md-0">
+                        <li class="nav-item"><a class="nav-link link-secondary" href="{% url 'privacy_policy' %}">Privacy
+                            Policy</a>
+                        </li>
+                        <li class="nav-item"><a class="nav-link link-secondary" href="{% url 'faqs' %}">FAQs</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Include Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+
+
+

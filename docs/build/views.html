@@ -1,0 +1,394 @@
+
+
+<!doctype html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Views &#8212; BloggersUnity 0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=649a27d8" />
+    <link rel="stylesheet" type="text/css" href="_static/bizstyle.css?v=532c1bf3" />
+    
+    <script src="_static/documentation_options.js?v=d45e8c67"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Urls" href="urls.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!--[if lt IE 9]>
+    <script src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="urls.html" title="Urls"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">BloggersUnity 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Views</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="views">
+<h1>Views<a class="headerlink" href="#views" title="Link to this heading">¶</a></h1>
+<dl class="py class" id="module-Tech.views">
+<dt class="sig sig-object py" id="Tech.views.AboutView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">AboutView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#AboutView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.AboutView" title="Link to this definition">¶</a></dt>
+<dd><p>Displays the ‘About’ page.</p>
+<dl class="simple">
+<dt>Methods:</dt><dd><p>get(request): Handles GET requests for displaying the ‘About’ page.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Tech.views.AuthorPostView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">AuthorPostView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#AuthorPostView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.AuthorPostView" title="Link to this definition">¶</a></dt>
+<dd><p>Displays a list of blog posts authored by a specific author.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>template_name (str): The HTML template used for rendering the author’s posts.</p>
+</dd>
+<dt>Methods:</dt><dd><p>get(request, author_name): Handles GET requests for displaying the author’s posts.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Tech.views.BlogPostDetailView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">BlogPostDetailView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#BlogPostDetailView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.BlogPostDetailView" title="Link to this definition">¶</a></dt>
+<dd><p>Displays a detailed view of a single blog post.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>template_name (str): The HTML template used for rendering the blog post detail.</p>
+</dd>
+<dt>Methods:</dt><dd><p>get(request, post_slug): Handles GET requests for displaying a detailed view of a single blog post.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Tech.views.BlogPostsView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">BlogPostsView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#BlogPostsView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.BlogPostsView" title="Link to this definition">¶</a></dt>
+<dd><p>Displays a list of all blog posts.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>template_name (str): The HTML template used for rendering the blog post list.
+per_page (int): Number of blog posts to display per page.</p>
+</dd>
+<dt>Methods:</dt><dd><p>get(request): Handles GET requests for displaying the list of all blog posts.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Tech.views.CategoryView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">CategoryView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#CategoryView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.CategoryView" title="Link to this definition">¶</a></dt>
+<dd><p>Displays a list of blog posts for a specific category.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>template_name (str): The HTML template used for rendering the author’s posts.</p>
+</dd>
+<dt>Methods:</dt><dd><p>get(request, category): Handles GET requests for displaying category-specific blog posts.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Tech.views.ContactView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">ContactView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#ContactView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.ContactView" title="Link to this definition">¶</a></dt>
+<dd><p>Displays the contact page and handles contact form submissions.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>template_name (str): The HTML template used for rendering the contact page.</p>
+</dd>
+<dt>Methods:</dt><dd><p>get(request): Handles GET requests for displaying the contact page.
+post(request): Handles POST requests for processing contact form submissions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Tech.views.CreateBlogPostView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">CreateBlogPostView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#CreateBlogPostView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.CreateBlogPostView" title="Link to this definition">¶</a></dt>
+<dd><p>Handles the creation of new blog posts.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>template_name (str): The HTML template used for rendering the create blog post page.</p>
+</dd>
+<dt>Methods:</dt><dd><p>get(request): Handles GET requests for displaying the create blog post page.
+post(request): Handles POST requests for creating new blog posts.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Tech.views.CustomLoginView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">CustomLoginView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#CustomLoginView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.CustomLoginView" title="Link to this definition">¶</a></dt>
+<dd><p>Handles user login and displays the login page.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>template_name (str): The HTML template used for rendering the login page.</p>
+</dd>
+<dt>Methods:</dt><dd><p>get(request, <a href="#id1"><span class="problematic" id="id2">*</span></a>args, <a href="#id3"><span class="problematic" id="id4">**</span></a>kwargs): Handles GET requests for displaying the login page.
+post(request, <a href="#id5"><span class="problematic" id="id6">*</span></a>args, <a href="#id7"><span class="problematic" id="id8">**</span></a>kwargs): Handles POST requests for user login and form submissions.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="Tech.views.CustomLoginView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#CustomLoginView.get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.CustomLoginView.get" title="Link to this definition">¶</a></dt>
+<dd><p>Handle GET requests: instantiate a blank version of the form.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Tech.views.CustomLoginView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#CustomLoginView.post"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.CustomLoginView.post" title="Link to this definition">¶</a></dt>
+<dd><p>Handle POST requests: instantiate a form instance with the passed
+POST variables and then check if it’s valid.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Tech.views.CustomLogoutView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">CustomLogoutView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#CustomLogoutView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.CustomLogoutView" title="Link to this definition">¶</a></dt>
+<dd><p>Handles user logout.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>next_page (str): The URL to redirect to after successful logout.</p>
+</dd>
+<dt>Methods:</dt><dd><p>(Inherits LogoutView’s methods)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Tech.views.CustomPasswordChangeView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">CustomPasswordChangeView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#CustomPasswordChangeView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.CustomPasswordChangeView" title="Link to this definition">¶</a></dt>
+<dd><p>Handles user password change functionality.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>template_name (str): The HTML template used for rendering the password change page.</p>
+</dd>
+<dt>Methods:</dt><dd><p>get(request, <a href="#id9"><span class="problematic" id="id10">*</span></a>args, <a href="#id11"><span class="problematic" id="id12">**</span></a>kwargs): Handles GET requests for displaying the password change page.
+post(request, <a href="#id13"><span class="problematic" id="id14">*</span></a>args, <a href="#id15"><span class="problematic" id="id16">**</span></a>kwargs): Handles POST requests for changing the user’s password.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Tech.views.CustomPasswordResetView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">CustomPasswordResetView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#CustomPasswordResetView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.CustomPasswordResetView" title="Link to this definition">¶</a></dt>
+<dd><p>Handles user password reset functionality.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>template_name (str): The HTML template used for rendering the password reset page.</p>
+</dd>
+<dt>Methods:</dt><dd><p>get(request): Handles GET requests for displaying the password reset page.
+post(request): Handles POST requests for initiating the password reset process.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Tech.views.DashboardView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">DashboardView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#DashboardView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.DashboardView" title="Link to this definition">¶</a></dt>
+<dd><p>Displays the user dashboard and handles sorting and filtering of user’s blog posts.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>template_name (str): The HTML template used for rendering the user dashboard.
+per_page (int): Number of blog posts to display per page.</p>
+</dd>
+<dt>Methods:</dt><dd><p>get(request): Handles GET requests for displaying the user dashboard.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Tech.views.DeleteBlogPostView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">DeleteBlogPostView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#DeleteBlogPostView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.DeleteBlogPostView" title="Link to this definition">¶</a></dt>
+<dd><p>Handles the deletion of existing blog posts.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>template_name (str): The HTML template used for rendering the delete blog post page.</p>
+</dd>
+<dt>Methods:</dt><dd><p>get(request, blog_post_id): Handles GET requests for displaying the delete blog post page.
+post(request, blog_post_id): Handles POST requests for deleting existing blog posts.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Tech.views.EditBlogPostView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">EditBlogPostView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#EditBlogPostView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.EditBlogPostView" title="Link to this definition">¶</a></dt>
+<dd><p>Handles the editing of existing blog posts.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>template_name (str): The HTML template used for rendering the edit blog post page.</p>
+</dd>
+<dt>Methods:</dt><dd><p>get(request, blog_post_id): Handles GET requests for displaying the edit blog post page.
+post(request, blog_post_id): Handles POST requests for editing existing blog posts.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Tech.views.FaqsView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">FaqsView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#FaqsView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.FaqsView" title="Link to this definition">¶</a></dt>
+<dd><p>Displays the frequently asked questions (FAQs) page.</p>
+<dl class="simple">
+<dt>Methods:</dt><dd><p>get(request): Handles GET requests for displaying the FAQs page.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Tech.views.HomeView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">HomeView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#HomeView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.HomeView" title="Link to this definition">¶</a></dt>
+<dd><p>Displays the home page with a list of blog posts.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>template_name (str): The HTML template used for rendering the home page.</p>
+</dd>
+<dt>Methods:</dt><dd><p>get(request): Handles GET requests for displaying the home page.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Tech.views.PrivacyPolicyView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">PrivacyPolicyView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#PrivacyPolicyView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.PrivacyPolicyView" title="Link to this definition">¶</a></dt>
+<dd><p>Displays the privacy policy page.</p>
+<dl class="simple">
+<dt>Methods:</dt><dd><p>get(request): Handles GET requests for displaying the privacy policy page.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Tech.views.SignupView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">SignupView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#SignupView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.SignupView" title="Link to this definition">¶</a></dt>
+<dd><p>Displays the signup page and handles user registration.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>template_name (str): The HTML template used for rendering the signup page.
+form_class (class): The form class for user registration.</p>
+</dd>
+<dt>Methods:</dt><dd><p>get(request): Handles GET requests for displaying the signup page.
+post(request): Handles POST requests for user registration and form submissions.</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="Tech.views.SignupView.form_class">
+<span class="sig-name descname"><span class="pre">form_class</span></span><a class="headerlink" href="#Tech.views.SignupView.form_class" title="Link to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="forms.html#Tech.forms.CustomSignUpForm" title="Tech.forms.CustomSignUpForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomSignUpForm</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="Tech.views.UserProfileView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">Tech.views.</span></span><span class="sig-name descname"><span class="pre">UserProfileView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tech/views.html#UserProfileView"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tech.views.UserProfileView" title="Link to this definition">¶</a></dt>
+<dd><p>Displays the user profile page and handles user profile updates.</p>
+<dl class="simple">
+<dt>Attributes:</dt><dd><p>template_name (str): The HTML template used for rendering the user profile page.</p>
+</dd>
+<dt>Methods:</dt><dd><p>get(request): Handles GET requests for displaying the user profile page.
+post(request): Handles POST requests for user profile updates and form submissions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Views</a><ul>
+<li><a class="reference internal" href="#Tech.views.AboutView"><code class="docutils literal notranslate"><span class="pre">AboutView</span></code></a></li>
+<li><a class="reference internal" href="#Tech.views.AuthorPostView"><code class="docutils literal notranslate"><span class="pre">AuthorPostView</span></code></a></li>
+<li><a class="reference internal" href="#Tech.views.BlogPostDetailView"><code class="docutils literal notranslate"><span class="pre">BlogPostDetailView</span></code></a></li>
+<li><a class="reference internal" href="#Tech.views.BlogPostsView"><code class="docutils literal notranslate"><span class="pre">BlogPostsView</span></code></a></li>
+<li><a class="reference internal" href="#Tech.views.CategoryView"><code class="docutils literal notranslate"><span class="pre">CategoryView</span></code></a></li>
+<li><a class="reference internal" href="#Tech.views.ContactView"><code class="docutils literal notranslate"><span class="pre">ContactView</span></code></a></li>
+<li><a class="reference internal" href="#Tech.views.CreateBlogPostView"><code class="docutils literal notranslate"><span class="pre">CreateBlogPostView</span></code></a></li>
+<li><a class="reference internal" href="#Tech.views.CustomLoginView"><code class="docutils literal notranslate"><span class="pre">CustomLoginView</span></code></a><ul>
+<li><a class="reference internal" href="#Tech.views.CustomLoginView.get"><code class="docutils literal notranslate"><span class="pre">CustomLoginView.get()</span></code></a></li>
+<li><a class="reference internal" href="#Tech.views.CustomLoginView.post"><code class="docutils literal notranslate"><span class="pre">CustomLoginView.post()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Tech.views.CustomLogoutView"><code class="docutils literal notranslate"><span class="pre">CustomLogoutView</span></code></a></li>
+<li><a class="reference internal" href="#Tech.views.CustomPasswordChangeView"><code class="docutils literal notranslate"><span class="pre">CustomPasswordChangeView</span></code></a></li>
+<li><a class="reference internal" href="#Tech.views.CustomPasswordResetView"><code class="docutils literal notranslate"><span class="pre">CustomPasswordResetView</span></code></a></li>
+<li><a class="reference internal" href="#Tech.views.DashboardView"><code class="docutils literal notranslate"><span class="pre">DashboardView</span></code></a></li>
+<li><a class="reference internal" href="#Tech.views.DeleteBlogPostView"><code class="docutils literal notranslate"><span class="pre">DeleteBlogPostView</span></code></a></li>
+<li><a class="reference internal" href="#Tech.views.EditBlogPostView"><code class="docutils literal notranslate"><span class="pre">EditBlogPostView</span></code></a></li>
+<li><a class="reference internal" href="#Tech.views.FaqsView"><code class="docutils literal notranslate"><span class="pre">FaqsView</span></code></a></li>
+<li><a class="reference internal" href="#Tech.views.HomeView"><code class="docutils literal notranslate"><span class="pre">HomeView</span></code></a></li>
+<li><a class="reference internal" href="#Tech.views.PrivacyPolicyView"><code class="docutils literal notranslate"><span class="pre">PrivacyPolicyView</span></code></a></li>
+<li><a class="reference internal" href="#Tech.views.SignupView"><code class="docutils literal notranslate"><span class="pre">SignupView</span></code></a><ul>
+<li><a class="reference internal" href="#Tech.views.SignupView.form_class"><code class="docutils literal notranslate"><span class="pre">SignupView.form_class</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Tech.views.UserProfileView"><code class="docutils literal notranslate"><span class="pre">UserProfileView</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="urls.html"
+                          title="previous chapter">Urls</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/views.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="urls.html" title="Urls"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">BloggersUnity 0.0.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Views</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2023, Prakash Satvi.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}{{ current_post.title }}{% endblock %}
+
+{% block content %}
+
+<!-- Main Content -->
+<main class="container">
+    <div class="row g-5">
+        <div class="col-md-8">
+            <!-- Display Category Name -->
+            <h3 class="pb-4 mb-4 fst-italic border-bottom">
+                {{ current_post.get_categories_display }}
+            </h3>
+            <!-- START Post -->
+            <article class="blog-post">
+                <h2 class="blog-post-title">{{ current_post.title }}</h2>
+                <p class="blog-post-meta">{{ current_post.pub_date |date:"F d, Y" }} by <a class="text-decoration-none"
+                                                                                           href="{% url 'author_posts' author_name=current_post.author %}">
+                    {{ current_post.author }}</a></p>
+                <div class="col-auto d-none d-lg-block">
+                    {% if current_post.image %}
+                    <img class="bd-placeholder-img" src="{{ current_post.image.url }}" width="730" height="400"
+                         alt="Placeholder: Thumbnail">
+                    {% endif %}
+                </div>
+                <div class="blog-content" style="text-align: justify;">
+                    <p>{{ current_post.content | linebreaksbr }}</p>
+                </div>
+            </article>
+            <!-- END Post -->
+
+            <!-- Pagination -->
+            <nav class="blog-pagination" aria-label="Pagination">
+                {% if previous_post %}
+                <a class="btn btn-outline-primary rounded-pill" href="{% url 'blog_post_detail' previous_post.slug %}">Older</a>
+                {% endif %}
+                {% if next_post %}
+                <a class="btn btn-outline-secondary rounded-pill" href="{% url 'blog_post_detail' next_post.slug %}">Newer</a>
+                {% endif %}
+            </nav>
+
+        </div>
+
+        <!-- START Sidebar -->
+        <div class="col-md-4">
+            <div class="position-sticky" style="top: 2rem;">
+                <!-- All Blog Post -->
+                <div class="p-4">
+                    <h4 class="fst-italic">All Blog Posts</h4>
+                    <ol class="list-unstyled mb-0">
+                        <li><a class="fst-italic" href="/blog/" style="text-decoration: none;">Read all posts</a></li>
+                    </ol>
+                </div>
+
+                <!-- All Categories -->
+                <div class="p-4">
+                    <h4 class="fst-italic">All Categories</h4>
+                    <ol class="list-unstyled mb-0">
+                        <li><a href="/category/aerospace/" style="text-decoration: none;">Aerospace</a></li>
+                        <li><a href="/category/artificial_intelligence/"
+                               style="text-decoration: none;">Artificial Intelligence</a></li>
+                        <li><a href="/category/automotive/" style="text-decoration: none;">Automotive</a></li>
+                        <li><a href="/category/biotechnology/" style="text-decoration: none;">Biotechnology</a></li>
+                        <li><a href="/category/cybersecurity/" style="text-decoration: none;">Cybersecurity</a></li>
+                        <li><a href="/category/fintech/" style="text-decoration: none;">Fintech</a></li>
+                        <li><a href="/category/gaming/" style="text-decoration: none;">Gaming</a></li>
+                        <li><a href="/category/iot/" style="text-decoration: none;">Internet of Things</a></li>
+                        <li><a href="/category/robotics/" style="text-decoration: none;">Robotics</a></li>
+                    </ol>
+                </div>
+
+                <!-- Social Media Link -->
+                <div class="p-4">
+                    <h4 class="fst-italic">Social Media</h4>
+                    <ol class="list-unstyled">
+                        <li><a href="https://github.com/praks7v" style="text-decoration: none;">GitHub</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- END Sidebar -->
+    </div>
+</main>
+{% endblock %}
