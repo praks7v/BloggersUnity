@@ -31,6 +31,7 @@ These instructions will help you set up a local development environment.
 
    ```bash
    pip install -r requirements.txt
+   cd BloggersUnity
    python manage.py migrate
    python manage.py runserver
 
