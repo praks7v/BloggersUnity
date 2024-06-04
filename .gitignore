@@ -1,2 +1,4 @@
 .vscode/
-Tech/__pycache__/
+__pycache__/
+venv
+staticfiles/
