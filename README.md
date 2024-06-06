@@ -28,7 +28,7 @@ These instructions will help you set up a local development environment.
 
 2. **Installation**
 
-  Clone the project to any directory where you do development work
+  Clone the project to any directory where you do development work.
   
    ```bash
    git clone https://github.com/praks7v/BloggersUnity.git
@@ -40,6 +40,23 @@ These instructions will help you set up a local development environment.
    make makemigrations
    make migrate
    make run
+   ```
+3. **Makefile**
+
+   A standard GNU Make file is provided to help with running and building locally.
+   ```
+     make help         - This is for help
+     make venv         - Create a virtual environment
+     make install      - Install dependencies
+     make run          - Run the Django development server
+     make migrate      - Apply database migrations
+     make makemigrations - Create new database migrations
+     make test         - Run tests
+	  make image        - Build the Docker image
+     make push         - Push image to the registry
+     make lint         - Run linters (flake8)
+     make format       - Format code using black
+     make clean        - Clean up Project
    ```
 
 5. **Usage**
