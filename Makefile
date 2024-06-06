@@ -5,7 +5,7 @@ PIP = $(VENV)/bin/pip
 
 # Used by `image`, `push` & `deploy` targets, override as required
 IMAGE_REG ?= localhost:5000
-IMAGE_REPO ?= bloggersunity
+IMAGE_REPO ?= bloggersunity-web
 IMAGE_TAG ?= latest
 
 # Project directory
@@ -63,7 +63,7 @@ run: venv
 
 
 image:  ## 🔨 Build container image from Dockerfile 
-	docker build . --file build/Dockerfile \
+	docker build . --file Dockerfile \
 	--tag $(IMAGE_REG)/$(IMAGE_REPO):$(IMAGE_TAG)
 
 push:  ## 📤 Push container image to registry 
