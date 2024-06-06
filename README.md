@@ -58,40 +58,40 @@ These instructions will help you set up a local development environment.
      make format       - Format code using black
      make clean        - Clean up Project
    ```
-Make file variables and default values, pass these in when calling `make`, e.g. `make image IMAGE_REPO=blah/foo`
+   Make file variables and default values, pass these in when calling `make`, e.g. `make image IMAGE_REPO=blah/foo`
 
-| Makefile Variable | Default                |
-| ----------------- | ---------------------- |
-| IMAGE_REG         | docker<span>.</span>io |
-| IMAGE_REPO        | username/project_name  |
-| IMAGE_TAG         | latest                 |
+   | Makefile Variable | Default                |
+   | ----------------- | ---------------------- |
+   | IMAGE_REG         | docker<span>.</span>io |
+   | IMAGE_REPO        | username/project_name  |
+   | IMAGE_TAG         | latest                 |
 
 
-The app runs under Flask and listens on port 8000 by default, this can be changed with the `PORT` environmental variable.
+   The app runs under Flask and listens on port 8000 by default, this can be changed with the `PORT` environmental variable.
 
 5. **Usage**
 
-Visit http://localhost:8000 to access the application.
-Create an account and start writing your blog posts.
+   Visit http://localhost:8000 to access the application.
+   Create an account and start writing your blog posts.
 
 4. **Contributing**
 
-Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+   Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
 5. **License**
 
-This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/) - see the LICENSE file for details.
+   This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/) - see the LICENSE file for details.
 
 6. **Documentation**
 
-For detailed documentation, see the BloggersUnity Documentation.
+   For detailed documentation, see the BloggersUnity Documentation.
 
 7. **Authors**
+   
+   [Praks7v](https://github.com/praks7v)
 
-Prakash Satvi
 
-
-8. **Screenshots**
+9. **Screenshots**
 Home
 ![Home Page](docs/source/_static/home_bloggersUnity.png)
 
