@@ -22,19 +22,27 @@ and offers features like user authentication, creating, editing, and deleting po
 These instructions will help you set up a local development environment.
 
 1. **Prerequisites**
-
-   - Python 3.x
+   - Be using Linux, WSL or MacOS, with bash, make etc.
+   - Python 3.x - for running locally, linting, running tests etc.
    - ...
 
 2. **Installation**
 
+  Clone the project to any directory where you do development work
+  
    ```bash
-   pip install -r requirements.txt
+       git clone https://github.com/praks7v/BloggersUnity.git
+   ```
+   ```bash
    cd BloggersUnity
-   python manage.py migrate
-   python manage.py runserver
+   make venv
+   make install
+   make makemigrations
+   make migrate
+   make run
+   ```
 
-3. **Usage**
+5. **Usage**
 
 Visit http://localhost:8000 to access the application.
 Create an account and start writing your blog posts.
@@ -45,7 +53,7 @@ Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for de
 
 5. **License**
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/) - see the LICENSE file for details.
 
 6. **Documentation**
 
