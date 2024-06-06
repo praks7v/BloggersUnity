@@ -31,7 +31,7 @@ These instructions will help you set up a local development environment.
   Clone the project to any directory where you do development work
   
    ```bash
-       git clone https://github.com/praks7v/BloggersUnity.git
+   git clone https://github.com/praks7v/BloggersUnity.git
    ```
    ```bash
    cd BloggersUnity
