@@ -6,28 +6,43 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Tech', '0001_initial'),
+        ("Tech", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='blogpost',
-            name='categories',
-            field=models.CharField(choices=[('IoT', 'IoT'), ('Cybersecurity', 'Cybersecurity'), ('Artificial Intelligence', 'Artificial Intelligence'), ('Robotics', 'Robotics'), ('Biotechnology', 'Biotechnology'), ('Automotive', 'Automotive'), ('Aerospace', 'Aerospace'), ('Gaming', 'Gaming'), ('Fintech', 'Fintech'), ('Other', 'Other')], default='Other', max_length=100),
+            model_name="blogpost",
+            name="categories",
+            field=models.CharField(
+                choices=[
+                    ("IoT", "IoT"),
+                    ("Cybersecurity", "Cybersecurity"),
+                    ("Artificial Intelligence", "Artificial Intelligence"),
+                    ("Robotics", "Robotics"),
+                    ("Biotechnology", "Biotechnology"),
+                    ("Automotive", "Automotive"),
+                    ("Aerospace", "Aerospace"),
+                    ("Gaming", "Gaming"),
+                    ("Fintech", "Fintech"),
+                    ("Other", "Other"),
+                ],
+                default="Other",
+                max_length=100,
+            ),
         ),
         migrations.AddField(
-            model_name='blogpost',
-            name='image',
-            field=models.ImageField(blank=True, null=True, upload_to='blog_images/'),
+            model_name="blogpost",
+            name="image",
+            field=models.ImageField(blank=True, null=True, upload_to="blog_images/"),
         ),
         migrations.AddField(
-            model_name='blogpost',
-            name='slug',
+            model_name="blogpost",
+            name="slug",
             field=models.SlugField(blank=True, max_length=255, unique=True),
         ),
         migrations.AddField(
-            model_name='blogpost',
-            name='tags',
+            model_name="blogpost",
+            name="tags",
             field=models.CharField(blank=True, max_length=50, null=True, unique=True),
         ),
     ]

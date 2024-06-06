@@ -6,13 +6,28 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('Tech', '0005_alter_blogpost_categories'),
+        ("Tech", "0005_alter_blogpost_categories"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='blogpost',
-            name='categories',
-            field=models.CharField(choices=[('IoT', 'Internet of Things'), ('Cybersecurity', 'Cybersecurity'), ('Artificial_Intelligence', 'Artificial Intelligence'), ('Robotics', 'Robotics'), ('Biotechnology', 'Biotechnology'), ('Automotive', 'Automotive'), ('Aerospace', 'Aerospace'), ('Gaming', 'Gaming'), ('Fintech', 'Fintech'), ('Other', 'Other')], default='Other', max_length=100),
+            model_name="blogpost",
+            name="categories",
+            field=models.CharField(
+                choices=[
+                    ("IoT", "Internet of Things"),
+                    ("Cybersecurity", "Cybersecurity"),
+                    ("Artificial_Intelligence", "Artificial Intelligence"),
+                    ("Robotics", "Robotics"),
+                    ("Biotechnology", "Biotechnology"),
+                    ("Automotive", "Automotive"),
+                    ("Aerospace", "Aerospace"),
+                    ("Gaming", "Gaming"),
+                    ("Fintech", "Fintech"),
+                    ("Other", "Other"),
+                ],
+                default="Other",
+                max_length=100,
+            ),
         ),
     ]

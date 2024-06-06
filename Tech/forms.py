@@ -14,30 +14,32 @@ class CustomSignUpForm(UserCreationForm):
     It provides validation and custom error messages for email and password fields.
     """
 
-    email = forms.EmailField(max_length=254, help_text="Required. Enter your email address.",
-                             error_messages={
-                                 'invalid': "Please enter a valid email address.",
-                                 'unique': "This email address is already in use. Please choose a different one."
-                             })
+    email = forms.EmailField(
+        max_length=254,
+        help_text="Required. Enter your email address.",
+        error_messages={
+            "invalid": "Please enter a valid email address.",
+            "unique": "This email address is already in use. Please choose a different one.",
+        },
+    )
 
     class Meta:
         model = CustomUser  # Use your custom user model
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ("username", "email", "password1", "password2")
 
     error_messages = {
-        'username': {
-            'unique': "This username is already in use. Please choose a different one."
+        "username": {
+            "unique": "This username is already in use. Please choose a different one."
         },
         # Define a custom error message for the 'password_mismatch' case
-        'password1': {
-            'password_mismatch': "The password fields didn't match."
-        }
+        "password1": {"password_mismatch": "The password fields didn't match."},
     }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['username'].error_messages[
-            'unique'] = "This username is already in use. Please choose a different one."
+        self.fields["username"].error_messages[
+            "unique"
+        ] = "This username is already in use. Please choose a different one."
 
     def clean_password2(self):
         # Custom validation to ensure password fields match.
@@ -46,8 +48,8 @@ class CustomSignUpForm(UserCreationForm):
 
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError(
-                self.error_messages['password1']['password_mismatch'],
-                code='password_mismatch',
+                self.error_messages["password1"]["password_mismatch"],
+                code="password_mismatch",
             )
 
         return password2
@@ -60,10 +62,10 @@ class UserProfileForm(forms.ModelForm):
 
     class Meta:
         model = CustomUser
-        fields = ['first_name', 'last_name', 'bio', 'profile_picture', 'date_of_birth']
+        fields = ["first_name", "last_name", "bio", "profile_picture", "date_of_birth"]
 
     def clean_profile_picture(self):
-        profile_picture = self.cleaned_data.get('profile_picture')
+        profile_picture = self.cleaned_data.get("profile_picture")
 
         if profile_picture:
             # Limit profile picture size to 5MB
@@ -74,7 +76,7 @@ class UserProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(UserProfileForm, self).__init__(*args, **kwargs)
-        self.fields['profile_picture'].required = False
+        self.fields["profile_picture"].required = False
 
 
 class BlogPostForm(forms.ModelForm):
@@ -84,7 +86,7 @@ class BlogPostForm(forms.ModelForm):
 
     class Meta:
         model = BlogPost
-        fields = ['title', 'content', 'status', 'image', 'categories', 'status']
+        fields = ["title", "content", "status", "image", "categories", "status"]
 
 
 class BlogPostEditForm(forms.ModelForm):
@@ -94,7 +96,7 @@ class BlogPostEditForm(forms.ModelForm):
 
     class Meta:
         model = BlogPost
-        fields = ['title', 'content', 'status', 'image', 'categories', 'status']
+        fields = ["title", "content", "status", "image", "categories", "status"]
 
 
 class ContactForm(forms.ModelForm):
@@ -104,4 +106,4 @@ class ContactForm(forms.ModelForm):
 
     class Meta:
         model = ContactMessage
-        fields = ['first_name', 'last_name', 'email', 'subject', 'message']
+        fields = ["first_name", "last_name", "email", "subject", "message"]

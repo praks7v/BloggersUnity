@@ -10,6 +10,7 @@ IMAGE_TAG ?= latest
 
 # Project directory
 PROJECT_DIR = BloggersUnity
+APP_DIR = Tech
 
 # Help message
 help:
@@ -41,7 +42,7 @@ lint: venv
 
 # Format code
 format: venv
-	$(VENV)/bin/black $(PROJECT_DIR)
+	$(VENV)/bin/black $(PROJECT_DIR) $(APP_DIR)
 
 # Create new database migrations
 makemigrations: venv
