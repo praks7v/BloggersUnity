@@ -58,6 +58,16 @@ These instructions will help you set up a local development environment.
      make format       - Format code using black
      make clean        - Clean up Project
    ```
+Make file variables and default values, pass these in when calling `make`, e.g. `make image IMAGE_REPO=blah/foo`
+
+| Makefile Variable | Default                |
+| ----------------- | ---------------------- |
+| IMAGE_REG         | docker<span>.</span>io |
+| IMAGE_REPO        | username/project_name  |
+| IMAGE_TAG         | latest                 |
+
+
+The app runs under Flask and listens on port 8000 by default, this can be changed with the `PORT` environmental variable.
 
 5. **Usage**
 
