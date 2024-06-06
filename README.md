@@ -28,7 +28,7 @@ These instructions will help you set up a local development environment.
 
 2. **Installation**
 
-  Clone the project to any directory where you do development work.
+   Clone the project to any directory where you do development work.
   
    ```bash
    git clone https://github.com/praks7v/BloggersUnity.git
