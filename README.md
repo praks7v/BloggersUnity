@@ -41,7 +41,7 @@ Create an account and start writing your blog posts.
 
 4. **Contributing**
 
-Contributions are welcome! Please read CONTRIBUTING.md for details on our code of conduct and the process for submitting pull requests.
+Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
 5. **License**
 
