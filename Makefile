@@ -24,8 +24,9 @@ help:
 	@echo "  make test         - Run tests"
 	@echo "	 make image        - Build the Docker image"
 	@echo "  make push         - Push image to the registry"
-	@echo "  make lint         - Run linters (flake8 and pylint)"
+	@echo "  make lint         - Run linters (flake8)"
 	@echo "  make format       - Format code using black"
+	@echo "  make clean        - Clean up Project" 
 
 # Create virtual environment
 venv:
