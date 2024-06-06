@@ -24,7 +24,6 @@ These instructions will help you set up a local development environment.
 1. **Prerequisites**
 
    - Python 3.x
-   - Django
    - ...
 
 2. **Installation**
