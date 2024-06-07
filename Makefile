@@ -6,7 +6,7 @@ PIP = $(VENV)/bin/pip
 # Used by `image`, `push` & `deploy` targets, override as required
 IMAGE_REG ?= localhost:5000
 IMAGE_REPO ?= bloggersunity-web
-IMAGE_TAG ?= v1
+IMAGE_TAG ?= latest
 
 # Project directory
 PROJECT_DIR = BloggersUnity
