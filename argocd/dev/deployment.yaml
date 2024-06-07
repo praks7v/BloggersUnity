@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: bloggersunity-webapp
-        image: localhost:5000/bloggersunity-web:latest
+        image: localhost:5000/bloggersunity-web:v1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000
