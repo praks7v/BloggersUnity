@@ -54,7 +54,6 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(url: 'http://localhost:5000') {
-                        sh "docker images"
                         sh "docker run -d --rm -it -p 8000:8000 localhost:5000/bloggersunity-web:latest"
                     }
                 }
