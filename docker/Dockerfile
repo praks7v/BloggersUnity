@@ -22,10 +22,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Ensure entrypoint script is executable
-RUN chmod +x ./entrypoint.sh
+RUN chmod +x ./docker/entrypoint.sh
 
 # Expose port 8000
 EXPOSE 8000
 
 # Run the entrypoint script to start the Django app
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["./docker/entrypoint.sh"]
