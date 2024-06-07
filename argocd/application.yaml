@@ -11,7 +11,7 @@ spec:
     path: argocd/dev
   destination: 
     server: https://kubernetes.default.svc
-    namespace: bloggersunity
+    namespace: bloggersunity-dev
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
