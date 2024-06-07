@@ -27,6 +27,9 @@ help:
 	@echo "  make lint         - Run linters (flake8)"
 	@echo "  make format       - Format code using black"
 	@echo "  make clean        - Clean up Project" 
+	@echo "  make compose:build - Build the Docker images using Docker Compose"
+	@echo "  make compose:up   - Run the container using Docker Compose"
+	@echo "  make compose:down - Stop the container using Docker Compose"
 
 # Create virtual environment
 venv:
@@ -69,6 +72,18 @@ image:  ## 🔨 Build container image from Dockerfile
 push:  ## 📤 Push container image to registry 
 	docker push $(IMAGE_REG)/$(IMAGE_REPO):$(IMAGE_TAG)
 
+# Build the Docker images using Docker Compose
+compose:build: 
+	docker compose -f docker/docker-compose.yaml build
+
+# Run the container using Docker Compose
+compose:up:
+	docker compose -f docker/docker-compose.yaml up -d
+
+# Stop the container using Docker Compose
+compose:down:
+	docker compose -f docker/docker-compose.yaml down
+
 # Clean the project
 clean:
 	-find . -name "*.pyc" -exec rm -f {} +
@@ -76,4 +91,4 @@ clean:
 	-find . -name "__pycache__" -exec rm -rf {} + || true
 	@if [ -d "$(VENV)" ]; then rm -rf $(VENV); fi
 
-.PHONY: help venv install run migrate makemigrations test clean
+.PHONY: help venv install run migrate makemigrations test clean compose:build compose:up compose:down
