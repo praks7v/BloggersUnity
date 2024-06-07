@@ -63,7 +63,7 @@ run: venv
 
 
 image:  ## 🔨 Build container image from Dockerfile 
-	docker build . --file Dockerfile \
+	docker build . --file docker/Dockerfile \
 	--tag $(IMAGE_REG)/$(IMAGE_REPO):$(IMAGE_TAG)
 
 push:  ## 📤 Push container image to registry 
