@@ -1,4 +1,4 @@
-# Docker Project
+# Docker Image build and Run Docker Container
 
 ## Overview
 This project demonstrates how to create a Docker image for an application and run it as a Docker container. The project includes a `Dockerfile` which contains all the necessary instructions to build the image.
