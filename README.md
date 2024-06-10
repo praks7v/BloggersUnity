@@ -44,9 +44,24 @@ These instructions will help you set up a local development environment.
    make run
    ```
 ### Step 02: Create Docker Image and Run Docker Container
+
+  - Follow the Docker official documentation for [Docker Installation](https://docs.docker.com/engine/install/).
+  - You can find the installation guide source [here](docker/README.md).
+   
 ### Step 03: Create CI/CD Pipeline using Jenkins
+
+   - Follow the Jenkins official documentation for [Jenkins Installation](https://www.jenkins.io/doc/book/installing/).
+   - You can find the installation guide source [here](jenkins/README.md).
+     
 ### Step 04: Deploy to Minikube Cluster
+
+   - Follow the Minikube official documentation for [Minikube Installation](https://minikube.sigs.k8s.io/docs/start/).
+   - You can find the installation guide source [here](argocd/dev/README.md).
+     
 ### Step 05: Setup Argocd on Minikube for Continuous Delivery
+
+   - Follow the Argocd official documentation for [Argocd Installation](https://argo-cd.readthedocs.io/en/stable/getting_started/).
+   - You can find the installation guide source [here](argocd/README.md).
 
 ### Makefile
 
