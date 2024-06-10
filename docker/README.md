@@ -17,7 +17,7 @@ cd BloggersUnity
 ```
 
 ### Building the Docker Image
-To build the Docker image, navigate to the directory containing the `Dockerfile` and run the following command:
+To build the Docker image, make sure the `Dockerfile` at right location and run the following command:
 
 ```bash
 docker build . -t bloggersunity:latest -f docker/Dockerfile
