@@ -8,9 +8,6 @@ __pycache__
 venv
 env
 
-# Ignore Django migrations
-**/migrations
-
 # Ignore the .git directory
 .git
 .gitignore
