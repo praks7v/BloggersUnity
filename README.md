@@ -21,6 +21,8 @@ and offers features like user authentication, creating, editing, and deleting po
 
 These instructions will help you set up a local development environment.
 
+### Step 01: Run Locally
+
 1. **Prerequisites**
    - Be using Linux, WSL or MacOS, with bash, make etc.
    - Python 3.x - for running locally, linting, running tests etc.
@@ -41,7 +43,12 @@ These instructions will help you set up a local development environment.
    make migrate
    make run
    ```
-3. **Makefile**
+### Step 02: Create Docker Image and Run Docker Container
+### Step 03: Create CI/CD Pipeline using Jenkins
+### Step 04: Deploy to Minikube Cluster
+### Step 05: Setup Argocd on Minikube for Continuous Delivery
+
+### Makefile
 
    A standard GNU Make file is provided to help with running and building locally.
    ```
@@ -52,7 +59,7 @@ These instructions will help you set up a local development environment.
      make migrate      - Apply database migrations
      make makemigrations - Create new database migrations
      make test         - Run tests
-	  make image        - Build the Docker image
+     make image        - Build the Docker image
      make push         - Push image to the registry
      make lint         - Run linters (flake8)
      make format       - Format code using black
@@ -71,7 +78,7 @@ These instructions will help you set up a local development environment.
 
 ### Usage
 
-   Visit http://localhost:8000 to access the application.
+   Visit [http://localhost:8000](http://localhost:8000 ) to access the application.
    Create an account and start writing your blog posts.
 
 ### Contributing
