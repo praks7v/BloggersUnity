@@ -22,6 +22,10 @@ To build the Docker image, navigate to the directory containing the `Dockerfile`
 ```bash
 docker build . -t bloggersunity:latest -f docker/Dockerfile
 ```
+To build the Docker image using docker compose:
+```
+docker compose -f docker/docker-compose.yaml build
+```
 
 This command builds the Docker image and tags it as `latest`.
 
@@ -30,6 +34,10 @@ To run the Docker container, use the following command:
 
 ```bash
 docker run -p 8000:8000 bloggersunity:latest
+```
+To run the Docker container using docker compose, use the following command:
+```
+docker compose -f docker/docker-compose.yaml up
 ```
 
 This command maps port 8000 in the container to port 8000 on your host machine. You can access the application by navigating to `http://localhost:8000`.
