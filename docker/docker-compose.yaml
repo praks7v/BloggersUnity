@@ -5,7 +5,7 @@ services:
     build:
       context: ..
       dockerfile: docker/Dockerfile
-    image: localhost:5000/bloggersunity:latest
+    image: localhost:5000/bloggersunity-web:latest
     command: ./docker/entrypoint.sh
     environment:
       - PYTHONDONTWRITEBYTECODE=1
