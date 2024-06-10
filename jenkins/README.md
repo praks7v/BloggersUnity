@@ -56,25 +56,26 @@ The `Jenkinsfile` contains the pipeline script.
   To login default username and password is `admin`.
 
   after go to the `http://localhost:9000/admin/users` create a token for jenkins credentials.
-  ![sonar-token](jenkins/screenshot/sonar-token.png) 
+  ![sonar-token](screenshot/sonar-token.png) 
   
   Add Credentials for SonarQube at global scope (add as a secret text):
-  ![sonar-credential](jenkins/screenshot/sonar-credential.png) 
+  ![sonar-credential](screenshot/sonar-credential.png) 
   
   Configure system for SonarQube:
-   ![sonar-system-configure](jenkins/screenshot/sonar-system-configure.png) 
+   ![sonar-system-configure](screenshot/sonar-system-configure.png) 
    
   **Configure tools**:
   1. Sonarqube
   2. OWASP Dependency Check
   3. Docker
      
-  ![tools-configure](jenkins/screenshot/tools-configure.png) 
+  ![tools-configure](screenshot/tools-configure.png) 
   
   
 3. **Run the Pipeline**:
     - Trigger the pipeline manually or configure it to run automatically based on certain triggers (e.g., commit to the repository).
 
+![pipeline-scm](pipeline-scm.png)
 
 ## Environment Variables
 Make sure to configure any necessary environment variables in Jenkins for your build and deployment processes.
