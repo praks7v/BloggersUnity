@@ -67,31 +67,30 @@ These instructions will help you set up a local development environment.
    | IMAGE_TAG         | latest                 |
 
 
-   The app runs under Flask and listens on port 8000 by default, this can be changed with the `PORT` environmental variable.
+   The app runs under Django and listens on port 8000 by default, this can be changed with the `PORT` environmental variable.
 
-5. **Usage**
+### Usage
 
    Visit http://localhost:8000 to access the application.
    Create an account and start writing your blog posts.
 
-4. **Contributing**
+### Contributing
 
    Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
-
-5. **License**
-
+   
+### License
    This project is licensed under the [MIT License](https://choosealicense.com/licenses/mit/) - see the LICENSE file for details.
 
-6. **Documentation**
+### Documentation
 
    For detailed documentation, see the BloggersUnity Documentation.
 
-7. **Authors**
+### Authors
    
    [Praks7v](https://github.com/praks7v)
 
 
-9. **Screenshots**
+### Screenshots
 Home
 ![Home Page](docs/source/_static/home_bloggersUnity.png)
 
