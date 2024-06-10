@@ -75,7 +75,7 @@ The `Jenkinsfile` contains the pipeline script.
 3. **Run the Pipeline**:
     - Trigger the pipeline manually or configure it to run automatically based on certain triggers (e.g., commit to the repository).
 
-![pipeline-scm](pipeline-scm.png)
+![pipeline-scm](screenshot/pipeline-scm.png)
 
 ## Environment Variables
 Make sure to configure any necessary environment variables in Jenkins for your build and deployment processes.
