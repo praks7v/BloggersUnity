@@ -14,9 +14,12 @@ This project uses Jenkins Pipeline to automate the build, test, and deployment p
 ## Pipeline Structure
 The pipeline consists of the following stages:
 1. **Checkout**: Fetch the latest code from the repository.
-2. **Build**: Compile the source code and build the application.
-3. **Test**: Run unit and integration tests to verify the application.
-4. **Deploy**: Deploy the application to the staging/production environment.
+2. **OWASP Scan**: Check the depencency.
+3. **Trivy Scan**: Scan the application.
+4. **SonarQube Analysis**: Analyse the code using sonarqube.
+5. **Build**: Compile the source code and build the application.
+6. **Test**: Run unit and integration tests to verify the application.
+7. **Deploy**: Deploy the application to the staging/production environment.
 
 ## Getting Started
 The `Jenkinsfile` contains the pipeline script.
@@ -31,8 +34,44 @@ The `Jenkinsfile` contains the pipeline script.
 2. **Configure Jenkins**:
     - Open Jenkins and navigate to the "New Item" page.
     - Create a new Pipeline job and configure it to use the `Jenkinsfile` from the repository.
+      
+   **Plugins to install**:
+  - docker plugins
+  - OWASP Dependency-Check Plugin
+  - Pipeline
+  - SonarQube Scanner for Jenkins
 
+    **SonarQube Installation**
 
+  To pull sonarqube docker iamge, use the following command:
+   ```
+   docker pull sonarqube:lts-community
+   ```
+  To run sonarqube docker iamge, use the following command:
+   ```
+   docker run -d --name sonarqube -p 9000:9000 sonarqube:lts-community
+   ```
+  To access the sonarqube on browser `http://localhost:9000/`.
+  
+  To login default username and password is `admin`.
+
+  after go to the `http://localhost:9000/admin/users` create a token for jenkins credentials.
+  ![sonar-token](jenkins/screenshot/sonar-token.png) 
+  
+  Add Credentials for SonarQube at global scope (add as a secret text):
+  ![sonar-credential](jenkins/screenshot/sonar-credential.png) 
+  
+  Configure system for SonarQube:
+   ![sonar-system-configure](jenkins/screenshot/sonar-system-configure.png) 
+   
+  **Configure tools**:
+  1. Sonarqube
+  2. OWASP Dependency Check
+  3. Docker
+     
+  ![tools-configure](jenkins/screenshot/tools-configure.png) 
+  
+  
 3. **Run the Pipeline**:
     - Trigger the pipeline manually or configure it to run automatically based on certain triggers (e.g., commit to the repository).
 
