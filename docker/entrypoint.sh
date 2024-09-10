@@ -10,9 +10,8 @@ python manage.py migrate
 echo "Collecting static files"
 python manage.py collectstatic --noinput
 
-# Start the Django server
-echo "Starting server"
-python manage.py runserver 0.0.0.0:8000
-gunicorn myapp.wsgi:application --bind 0.0.0.0:8000
+# Start Gunicorn
+echo "Starting Gunicorn"
+gunicorn BloggersUnity.wsgi:application --bind 0.0.0.0:8000 --workers 3
 
 exec "$@"
