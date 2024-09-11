@@ -58,24 +58,24 @@ TEMPLATES = [
 WSGI_APPLICATION = "BloggersUnity.wsgi.application"
 
 # Database
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': config('POSTGRES_DATABASE'),
-#         'USER': config('POSTGRES_USER'),
-#         'PASSWORD': config('POSTGRES_PASSWORD'),
-#         'HOST': config('POSTGRES_HOST'),
-#         'PORT': config('POSTGRES_PORT', default='5432'),
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('POSTGRES_DATABASE'),
+        'USER': config('POSTGRES_USER'),
+        'PASSWORD': config('POSTGRES_PASSWORD'),
+        'HOST': config('POSTGRES_HOST'),
+        'PORT': config('POSTGRES_PORT', default='5432'),
+    }
+}
 
 # myapp/settings/production.py
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=f'postgres://{config("POSTGRES_USER")}:{config("POSTGRES_PASSWORD")}@/{config("POSTGRES_DATABASE")}?host=/cloudsql/praks-dev:asia-south1:django-db'
-    )
-}
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=f'postgres://{config("POSTGRES_USER")}:{config("POSTGRES_PASSWORD")}@/{config("POSTGRES_DATABASE")}?host=/cloudsql/praks-dev:asia-south1:django-db'
+#     )
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
