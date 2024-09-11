@@ -5,6 +5,7 @@
 
 <!-- Main Content -->
 <main class="container">
+    {% if blog_posts|length > 1 %}
     <div class="p-4 p-md-5 mb-4 text-white rounded bg-dark">
         <!-- Latest Blog Post -->
         <div class="col-md-6 px-0">
@@ -120,5 +121,8 @@
         </div>
     </div>
     <!-- Sidebar END -->
+    {% else %}
+    <p>No posts available.</p>
+{% endif %}
 </main>
 {% endblock %}
